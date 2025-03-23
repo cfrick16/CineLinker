@@ -17,7 +17,7 @@ This is a monorepo containing the following packages:
    pnpm install
    ```
 
-2. Start development servers: (I needed to run pnpm dev in both packages/web and packages/server)
+2. Start development servers:
    ```bash
    pnpm dev
    ```

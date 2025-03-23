@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 
 function App() {
-  const LOADING_STATUS = 'loading'
-  const [status, setStatus] = useState<string>(LOADING_STATUS)
+  const [status, setStatus] = useState<string>('loading')
 
   useEffect(() => {
     fetch('/api/health')

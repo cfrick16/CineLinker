@@ -1,10 +1,12 @@
 export interface Movie {
+  id: string;
   title: string;
   year: number;
-  actors: Actor[];
+  actorIds: string[];
 }
 
 export interface Actor {
+  id: string;
   name: string;
-  movies: Movie[];
+  movieIds: string[];
 } 
