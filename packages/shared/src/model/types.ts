@@ -10,3 +10,14 @@ export interface Actor {
   name: string;
   movieIds: string[];
 } 
+export interface SearchResult {
+  imageUrl: string | undefined | null;
+  text: string;
+  id: string;
+  entityType: EntityType;
+}
+
+export enum EntityType {
+  Movie = 'movie',
+  Actor = 'actor'
+}

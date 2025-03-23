@@ -1,10 +1,9 @@
 import express from 'express';
 import cors from 'cors';
-import { SearchMoviesRequest, SearchMoviesResponse, SearchActorsRequest, 
-  SearchActorsResponse,
-} from '@cinelinker/shared'; 
-import { movieService } from './services/MovieService';
+import { SearchRequest, SearchResponse, GetMovieByIdRequest, GetMovieByIdResponse, GetActorByIdRequest, GetActorByIdResponse } from '@cinelinker/shared'; 
 import { actorsService } from './services/ActorsService';
+import { searchService } from './services/SearchService';
+import { movieService } from './services/MovieService';
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -16,17 +15,24 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
-app.get('/api/searchMovies', (req: SearchMoviesRequest, res: SearchMoviesResponse) => {
-  movieService.searchMovies(req.query.searchQuery).then((movies) => {
-      res.json({ status: 'success', movies: movies });
+app.get('/api/searchMoviesAndActors', (req: SearchRequest, res: SearchResponse) => {
+  searchService.searchMoviesAndActors(req.query.searchQuery).then((results) => {
+      res.json({ status: 'success', results: results });
   });
 });
 
-app.get('/api/searchActors', (req: SearchActorsRequest, res: SearchActorsResponse) => {
-  actorsService.searchActors(req.query.searchQuery).then((actors) => {
-      res.json({ status: 'success', actors: actors });
+app.get('/api/getMovieById', (req: GetMovieByIdRequest, res: GetMovieByIdResponse) => {
+  movieService.getMovieById(req.query.id).then((movie) => {
+      res.json({ status: 'success', movie: movie });
   });
 });
+
+app.get('/api/getActorById', (req: GetActorByIdRequest, res: GetActorByIdResponse) => {
+  actorsService.getActorById(req.query.id).then((actor) => {
+      res.json({ status: 'success', actor: actor });
+  });
+});
+
 
 
 
