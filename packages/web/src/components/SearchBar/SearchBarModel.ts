@@ -9,4 +9,5 @@ export interface SearchBarModel {
 
 export interface SearchBarActions {
   handleQueryChange: (query: string) => void;
+  onResultClick?: (result: SearchResult) => void;
 } 

@@ -54,8 +54,17 @@ export function useSearchBarController(): [SearchBarModel, SearchBarActions] {
     debouncedSearch(newQuery);
   }, [debouncedSearch]);
 
+  const handleResultClick = useCallback((result: SearchResult) => {
+    // Dispatch a custom event that Chain can listen for
+    const event = new CustomEvent('searchResultSelected', { 
+      detail: result,
+      bubbles: true 
+    });
+    document.dispatchEvent(event);
+  }, []);
+
   return [
     { query, isLoading, searchResults, error },
-    { handleQueryChange }
+    { handleQueryChange, onResultClick: handleResultClick }
   ];
 } 

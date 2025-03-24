@@ -1,11 +1,10 @@
 {
   "compilerOptions": {
     "target": "es2018",
-    "module": "ESNext",
+    "module": "CommonJS",
     "moduleResolution": "node",
-    "declaration": true,
-    "declarationDir": "./dist/types",
-    "outDir": "./dist/esm",
+    "declaration": false,
+    "outDir": "./dist/cjs",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,

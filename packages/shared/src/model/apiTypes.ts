@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
-import { Movie, Actor, SearchResult } from './types';
+import { Movie, Actor, SearchResult, ISOString, EntityType } from './types';
+
+export type Status = 'success' | 'error';
 
 // GetMovieById
 export interface GetMovieByIdRequest extends Request {
@@ -7,7 +9,7 @@ export interface GetMovieByIdRequest extends Request {
     id: string;
   };
 }
-export type GetMovieByIdResponseBody = { status: string; movie?: Movie }
+export type GetMovieByIdResponseBody = { status: Status; movie?: Movie }
 export interface GetMovieByIdResponse extends Response {
   json: (body: GetMovieByIdResponseBody) => this;
 }
@@ -34,4 +36,24 @@ export interface SearchMoviesAndActorsRequest extends Request {
 export type SearchMoviesAndActorsResponseBody = { status: string; results?: SearchResult[] }
 export interface SearchMoviesAndActorsResponse extends Response {
   json: (body: SearchMoviesAndActorsResponseBody) => this;
+} 
+
+// GetDailyChallenge
+export interface GetDailyChallengeRequest extends Request {
+  query: {
+    date?: ISOString;
+  };
+}
+
+export type GetDailyChallengeResponseBody = {
+  status: Status;
+  start: Actor | Movie;
+  startType: EntityType;
+  end: Actor | Movie;
+  endType: EntityType;
+  date: ISOString;
+}
+
+export interface GetDailyChallengeResponse extends Response {
+  json: (body: GetDailyChallengeResponseBody) => this;
 } 

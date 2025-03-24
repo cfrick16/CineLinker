@@ -1,0 +1,144 @@
+.chain-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2rem;
+  width: 100%;
+  gap: 2rem;
+}
+
+.chain-left, .chain-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.chain-right {
+  justify-content: flex-end;
+}
+
+.chain-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.chain-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: 200px;
+}
+
+.chain-node.movie {
+  border-left: 4px solid #3b82f6;
+}
+
+.chain-node.actor {
+  border-left: 4px solid #10b981;
+}
+
+.node-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  background-color: #f3f4f6;
+}
+
+.node-image.movie {
+  aspect-ratio: 2/3;
+  width: 80px;
+  height: 120px;
+}
+
+.node-image.actor {
+  border-radius: 50%;
+}
+
+.node-image-placeholder {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f4f6;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #9ca3af;
+}
+
+.node-image-placeholder.movie {
+  aspect-ratio: 2/3;
+  width: 80px;
+  height: 120px;
+}
+
+.node-image-placeholder.actor {
+  border-radius: 50%;
+}
+
+.node-details {
+  text-align: center;
+}
+
+.node-details h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: #1f2937;
+}
+
+.node-details .year {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.chain-connection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.connection-line {
+  width: 60px;
+  height: 2px;
+  background-color: #278210;
+  position: relative;
+}
+
+.connection-line::before,
+.connection-line::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #18d865;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.connection-line::before {
+  left: -3px;
+}
+
+.connection-line::after {
+  right: -3px;
+}
+
+.connection-label {
+  font-size: 0.75rem;
+  color: #6b7280;
+  white-space: nowrap;
+}

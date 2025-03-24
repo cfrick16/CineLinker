@@ -2,11 +2,13 @@ import express from 'express';
 import cors from 'cors';
 import { SearchMoviesAndActorsRequest, SearchMoviesAndActorsResponse, 
   GetMovieByIdRequest, GetMovieByIdResponse, 
-  GetActorByIdRequest, GetActorByIdResponse 
+  GetActorByIdRequest, GetActorByIdResponse,
+  GetDailyChallengeRequest, GetDailyChallengeResponse
 } from '@cinelinker/shared'; 
 import { actorsService } from './services/ActorsService';
 import { searchService } from './services/SearchService';
 import { movieService } from './services/MovieService';
+import { dailyChallengeService } from './services/DailyChallengeService';
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -36,8 +38,10 @@ app.get('/api/getActorById', (req: GetActorByIdRequest, res: GetActorByIdRespons
   });
 });
 
-
-
+app.get('/api/getDailyChallenge', (req: GetDailyChallengeRequest, res: GetDailyChallengeResponse) => {
+  console.log(req.query.date);
+  res.json(dailyChallengeService.getDailyChallenge(req.query.date));
+});
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

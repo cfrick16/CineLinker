@@ -22,7 +22,18 @@ export function SearchBarView({ model, actions }: SearchBarProps) {
   };
 
   const renderResult = (result: SearchResult) => (
-    <div key={result.id} className={`search-result ${result.entityType}`}>
+    <div 
+      key={result.id} 
+      className={`search-result ${result.entityType}`}
+      onClick={() => actions.onResultClick?.(result)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          actions.onResultClick?.(result);
+        }
+      }}
+    >
       <img
         src={result.imageUrl || getDefaultImage(result.entityType)}
         alt={result.text}
