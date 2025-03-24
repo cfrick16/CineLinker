@@ -23,12 +23,12 @@ export interface GetActorByIdResponse extends Response {
   json: (body: { status: string; actor?: Actor }) => this;
 }
 
-export interface SearchRequest extends Request {
+export interface SearchMoviesAndActorsRequest extends Request {
   query: {
     searchQuery: string;
   };
 }
 
-export interface SearchResponse extends Response {
+export interface SearchMoviesAndActorsResponse extends Response {
   json: (body: { status: string; results?: SearchResult[] }) => this;
 } 

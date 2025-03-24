@@ -24,10 +24,15 @@ async searchMoviesAndActors(query: string): Promise<SearchResult[]> {
                 imageUrl: null
             })));
 
+    await delay(1000);
     return await Promise.all([movieSearchResults, actorSearchResults])
         .then(([movieSearchResults, actorSearchResults]) => [...movieSearchResults, ...actorSearchResults]);
   }
 }
+
+function delay(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
 // Export a singleton instance
 export const searchService = new SearchService();

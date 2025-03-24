@@ -1,6 +1,9 @@
 import express from 'express';
 import cors from 'cors';
-import { SearchRequest, SearchResponse, GetMovieByIdRequest, GetMovieByIdResponse, GetActorByIdRequest, GetActorByIdResponse } from '@cinelinker/shared'; 
+import { SearchMoviesAndActorsRequest, SearchMoviesAndActorsResponse, 
+  GetMovieByIdRequest, GetMovieByIdResponse, 
+  GetActorByIdRequest, GetActorByIdResponse 
+} from '@cinelinker/shared'; 
 import { actorsService } from './services/ActorsService';
 import { searchService } from './services/SearchService';
 import { movieService } from './services/MovieService';
@@ -15,7 +18,7 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
-app.get('/api/searchMoviesAndActors', (req: SearchRequest, res: SearchResponse) => {
+app.get('/api/searchMoviesAndActors', (req: SearchMoviesAndActorsRequest, res: SearchMoviesAndActorsResponse) => {
   searchService.searchMoviesAndActors(req.query.searchQuery).then((results) => {
       res.json({ status: 'success', results: results });
   });
