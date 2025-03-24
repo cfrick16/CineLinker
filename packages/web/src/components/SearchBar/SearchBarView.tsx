@@ -15,10 +15,25 @@ export function SearchBarView({ model, actions }: SearchBarProps) {
     actions.handleQueryChange(e.target.value);
   };
 
+  const getDefaultImage = (type: string) => {
+    return type === 'movie' 
+      ? '/images/default-movie.svg'
+      : '/images/default-actor.svg';
+  };
+
   const renderResult = (result: SearchResult) => (
     <div key={result.id} className={`search-result ${result.entityType}`}>
+      <img
+        src={result.imageUrl || getDefaultImage(result.entityType)}
+        alt={result.text}
+        className={`result-image ${result.entityType}`}
+        onError={(e) => {
+          e.currentTarget.src = getDefaultImage(result.entityType);
+        }}
+      />
       <div className="result-content">
         <h3>{result.text}</h3>
+        <span className="result-type">{result.entityType}</span>
       </div>
     </div>
   );

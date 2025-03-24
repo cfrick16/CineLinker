@@ -1,0 +1,22 @@
+<svg width="120" height="180" viewBox="0 0 120 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="120" height="180" fill="#E2E8F0"/>
+  
+  <!-- Film reel icon -->
+  <circle cx="60" cy="60" r="20" fill="#94A3B8"/>
+  <circle cx="60" cy="60" r="15" fill="#E2E8F0"/>
+  <circle cx="60" cy="60" r="5" fill="#94A3B8"/>
+  
+  <!-- Small circles around the reel -->
+  <circle cx="60" cy="45" r="3" fill="#94A3B8"/>
+  <circle cx="75" cy="60" r="3" fill="#94A3B8"/>
+  <circle cx="60" cy="75" r="3" fill="#94A3B8"/>
+  <circle cx="45" cy="60" r="3" fill="#94A3B8"/>
+  
+  <!-- Title placeholder -->
+  <rect x="30" y="100" width="60" height="8" rx="2" fill="#94A3B8"/>
+  <rect x="40" y="115" width="40" height="6" rx="2" fill="#94A3B8"/>
+  
+  <!-- Year placeholder -->
+  <rect x="45" y="130" width="30" height="6" rx="2" fill="#94A3B8"/>
+</svg> 

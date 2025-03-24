@@ -12,7 +12,7 @@ async searchMoviesAndActors(query: string): Promise<SearchResult[]> {
                 text: movie.title + " (" + movie.year + ")", 
                 id: movie.id, 
                 entityType: EntityType.Movie,
-                imageUrl: null
+                imageUrl: movie.imageUrl
             })));
 
     const actorSearchResults: Promise<SearchResult[]> = actorsService
@@ -21,7 +21,7 @@ async searchMoviesAndActors(query: string): Promise<SearchResult[]> {
                 text: actor.name, 
                 id: actor.id, 
                 entityType: EntityType.Actor,
-                imageUrl: null
+                imageUrl: actor.imageUrl
             })));
 
     await delay(1000);

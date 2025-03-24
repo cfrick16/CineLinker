@@ -3,15 +3,17 @@ export interface Movie {
   title: string;
   year: number;
   actorIds: string[];
+  imageUrl?: string | undefined;
 }
 
 export interface Actor {
   id: string;
   name: string;
   movieIds: string[];
+  imageUrl?: string | undefined;
 } 
 export interface SearchResult {
-  imageUrl: string | undefined | null;
+  imageUrl?: string | undefined;
   text: string;
   id: string;
   entityType: EntityType;
