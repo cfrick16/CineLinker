@@ -1,2 +1,2 @@
 export * from './types'; 
-export * from './mainTypes';
+export * from './apiTypes';

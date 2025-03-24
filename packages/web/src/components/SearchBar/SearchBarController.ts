@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { SearchBarModel, SearchBarActions } from './SearchBarModel';
-import { SearchResult } from '@cinelinker/shared';
+import { SearchMoviesAndActorsResponseBody, SearchResult } from '@cinelinker/shared';
 import debounce from 'lodash/debounce';
 
 const MAX_RESULTS = 5;
@@ -22,13 +22,13 @@ export function useSearchBarController(): [SearchBarModel, SearchBarActions] {
     setError(undefined);
 
     try {
-      const response = await fetch(`/api/searchMoviesAndActors?searchQuery=${encodeURIComponent(searchQuery)}`);
-      const data = await response.json();
+      const response: Response = await fetch(`/api/searchMoviesAndActors?searchQuery=${encodeURIComponent(searchQuery)}`);
+      const data: SearchMoviesAndActorsResponseBody = await response.json();
 
-      if (data.status === 'success') {
+      if (data.status === 'success' && data.results != null) {
         setSearchResults(data.results.slice(0, MAX_RESULTS));
       } else {
-        setError('Search failed');
+        setError('Search failed: ' + response);
       }
     } catch (err) {
       setError('Network error');
