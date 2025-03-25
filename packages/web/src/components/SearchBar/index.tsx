@@ -3,10 +3,10 @@ import { useSearchBarController } from './SearchBarController';
 import { SearchBarView } from './SearchBarView';
 
 interface SearchBarProps {
-  onResultClick: (result: SearchResult) => void;
+  submitGuess: (result: SearchResult) => void;
 }
 
-export function SearchBar({ onResultClick }: SearchBarProps) {
-  const [model, actions] = useSearchBarController();
-  return <SearchBarView model={model} actions={{...actions, onResultClick}} />;
+export function SearchBar({ submitGuess }: SearchBarProps) {
+  const [model, actions] = useSearchBarController({submitGuess});
+  return <SearchBarView model={model} actions={actions} />;
 } 

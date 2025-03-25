@@ -1,12 +1,15 @@
 import { useState, useCallback, useEffect } from 'react';
 import { SearchMoviesAndActorsResponseBody, SearchResult } from '@cinelinker/shared';
 import debounce from 'lodash/debounce';
-import { SearchBarModel } from './SearchBarModel';
+import { SearchBarActions, SearchBarModel } from './SearchBarModel';
 
 const MAX_RESULTS = 5;
 const DEBOUNCE_TIME_MS = 300;
 
-export function useSearchBarController(): [SearchBarModel, {handleQueryChange: (query: string) => void}] {
+interface SearchBarControllerProps {
+  submitGuess: (result: SearchResult) => void;
+}
+export function useSearchBarController({submitGuess}: SearchBarControllerProps): [SearchBarModel, SearchBarActions] {
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
@@ -54,9 +57,14 @@ export function useSearchBarController(): [SearchBarModel, {handleQueryChange: (
     debouncedSearch(newQuery);
   }, [debouncedSearch]);
 
+  const onResultClick = useCallback((result: SearchResult) => {
+    submitGuess(result);
+    setQuery('');
+    setSearchResults([]);
+  }, [submitGuess]);
 
   return [
     { query, isLoading, searchResults, error },
-    { handleQueryChange }
+    { handleQueryChange, onResultClick }
   ];
 } 

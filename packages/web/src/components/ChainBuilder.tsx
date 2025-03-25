@@ -49,8 +49,8 @@ export function ChainBuilder() {
 
   return (
     <div className="chain-builder">
-      <SearchBar onResultClick={submitGuess} />
-      <Chain leftNodes={leftNodes} rightNodes={rightNodes} centerNode={centerNode} />
+      <SearchBar submitGuess={submitGuess} />
+      <Chain leftNodes={leftNodes} setLeftNodes={setLeftNodes} rightNodes={rightNodes} setRightNodes={setRightNodes} centerNode={centerNode} setCenterNode={setCenterNode} />
     </div>
   );
 } 

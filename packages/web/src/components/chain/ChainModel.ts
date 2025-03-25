@@ -1,6 +1,7 @@
 import { Actor, EntityType, Movie } from '@cinelinker/shared';
 
 export interface ChainActions {
+  removeNode: (chainNode: ChainNode) => void;
 }
 
 export interface ChainNode {
