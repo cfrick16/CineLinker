@@ -1,12 +1,12 @@
 import { useState, useCallback, useEffect } from 'react';
-import { SearchBarModel, SearchBarActions } from './SearchBarModel';
 import { SearchMoviesAndActorsResponseBody, SearchResult } from '@cinelinker/shared';
 import debounce from 'lodash/debounce';
+import { SearchBarModel } from './SearchBarModel';
 
 const MAX_RESULTS = 5;
 const DEBOUNCE_TIME_MS = 300;
 
-export function useSearchBarController(): [SearchBarModel, SearchBarActions] {
+export function useSearchBarController(): [SearchBarModel, {handleQueryChange: (query: string) => void}] {
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
@@ -54,17 +54,9 @@ export function useSearchBarController(): [SearchBarModel, SearchBarActions] {
     debouncedSearch(newQuery);
   }, [debouncedSearch]);
 
-  const handleResultClick = useCallback((result: SearchResult) => {
-    // Dispatch a custom event that Chain can listen for
-    const event = new CustomEvent('searchResultSelected', { 
-      detail: result,
-      bubbles: true 
-    });
-    document.dispatchEvent(event);
-  }, []);
 
   return [
     { query, isLoading, searchResults, error },
-    { handleQueryChange, onResultClick: handleResultClick }
+    { handleQueryChange }
   ];
 } 

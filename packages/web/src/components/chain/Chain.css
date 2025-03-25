@@ -1,10 +1,41 @@
 .chain-container {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
   padding: 2rem;
-  width: 100%;
-  gap: 2rem;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.chain-container.success {
+  animation: successPulse 2s infinite;
+}
+
+.chain-container.success .chain-node {
+  border-color: #10b981;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+}
+
+.chain-container.success .connection-line {
+  background-color: #10b981;
+}
+
+.chain-container.success .connection-line::before,
+.chain-container.success .connection-line::after {
+  background-color: #10b981;
+}
+
+@keyframes successPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
 }
 
 .chain-left, .chain-right {
@@ -141,4 +172,106 @@
   font-size: 0.75rem;
   color: #6b7280;
   white-space: nowrap;
+}
+
+.chain-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 100%;
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search-input {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.5rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: #3b82f6;
+}
+
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  margin-top: 0.5rem;
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.search-result {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.search-result:hover {
+  background-color: #f3f4f6;
+}
+
+.result-image {
+  width: 48px;
+  height: 48px;
+  border-radius: 0.25rem;
+  object-fit: cover;
+}
+
+.result-details {
+  flex: 1;
+}
+
+.result-details h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: #1f2937;
+}
+
+.result-type {
+  font-size: 0.875rem;
+  color: #6b7280;
+  text-transform: capitalize;
+}
+
+.loading {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  text-align: center;
+  color: #6b7280;
+}
+
+.error {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  text-align: center;
+  color: #ef4444;
+  background-color: #fee2e2;
+  border-radius: 0.5rem;
+  margin-top: 0.5rem;
 }

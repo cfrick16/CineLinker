@@ -16,7 +16,7 @@ export const sampleActors: Actor[] = [
   {
     id: "a3",
     name: "Scarlett Johansson",
-    movieIds: ["m3"]
+    movieIds: ["m3", "m2"]
   },
   {
     id: "a4",

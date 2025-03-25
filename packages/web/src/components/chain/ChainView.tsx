@@ -9,29 +9,29 @@ interface ChainViewProps {
 
 function ActorNode({ actor }: { actor: Actor }) {
   return (
-    <div className={`chain-node actor}`}>          
+    <div className={`chain-node actor`}>          
       <img 
           src={actor.imageUrl} 
           alt={actor.name}
           className={`node-image actor`}
           onError={(e) => { e.currentTarget.src = '/images/default-actor.svg' }}
       />
-    <div className="node-details">
-      <h3>{actor.name}</h3>
+      <div className="node-details">
+        <h3>{actor.name}</h3>
+      </div>
     </div>
-  </div>
   );
 }
 
 function MovieNode({ movie }: { movie: Movie }) {
-    return (
-      <div className={`chain-node movie}`}>          
-        <img 
-            src={movie.imageUrl} 
-            alt={movie.title}
-            className={`node-image movieß`}
-            onError={(e) => { e.currentTarget.src = '/images/default-movie.svg' }}
-        />
+  return (
+    <div className={`chain-node movie`}>          
+      <img 
+          src={movie.imageUrl} 
+          alt={movie.title}
+          className={`node-image movie`}
+          onError={(e) => { e.currentTarget.src = '/images/default-movie.svg' }}
+      />
       <div className="node-details">
         <h3>{movie.title}</h3>
         {movie.year && (
@@ -39,15 +39,13 @@ function MovieNode({ movie }: { movie: Movie }) {
         )}
       </div>
     </div>
-    );
-  }
+  );
+}
 
-export function ChainView({ model, actions }: ChainViewProps) {
-  const { rightNodes, leftNodes } = model;
+export function ChainView({ model, actions: _ }: ChainViewProps) {
+  const { rightNodes, leftNodes, centerNode } = model;
 
-  console.debug(actions)
   const renderNode = (node: ChainNode, isLastNode: boolean) => {
-
     return (
       <div key={node.entity.id} className="chain-item">
         {node.entityType === EntityType.Actor ? (
@@ -65,6 +63,17 @@ export function ChainView({ model, actions }: ChainViewProps) {
       </div>
     );
   };
+
+  if (centerNode != null) {
+    console.log(centerNode);
+    // Show complete connected chain
+    const allNodes = [...leftNodes, centerNode, ...rightNodes];
+    return (
+      <div className="chain-container success">
+        {allNodes.map((node, idx) => renderNode(node, idx === allNodes.length - 1))}
+      </div>
+    );
+  }
 
   return (
     <div className="chain-container">

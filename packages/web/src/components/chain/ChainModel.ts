@@ -1,17 +1,15 @@
-import { Actor, EntityType, Movie, SearchResult } from '@cinelinker/shared';
+import { Actor, EntityType, Movie } from '@cinelinker/shared';
+
+export interface ChainActions {
+}
 
 export interface ChainNode {
   entity: Actor | Movie;
   entityType: EntityType;
-  isEndNode: boolean;
 }
 
 export interface ChainModel {
   leftNodes: ChainNode[];
   rightNodes: ChainNode[];
+  centerNode: ChainNode | null;
 }
-
-export interface ChainActions {
-  addNode: (result: SearchResult) => void;
-}
-

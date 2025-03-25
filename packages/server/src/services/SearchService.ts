@@ -24,7 +24,7 @@ async searchMoviesAndActors(query: string): Promise<SearchResult[]> {
                 imageUrl: actor.imageUrl
             })));
 
-    await delay(1000);
+    await delay(50);
     return await Promise.all([movieSearchResults, actorSearchResults])
         .then(([movieSearchResults, actorSearchResults]) => [...movieSearchResults, ...actorSearchResults]);
   }
