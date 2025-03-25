@@ -74,7 +74,11 @@
 }
 
 .chain-node.actor {
-  border-left: 4px solid #10b981;
+  border-color: #6366f1;
+}
+
+.chain-node.actor {
+  border-left: 4px solid #f63b64;
 }
 
 .node-image {

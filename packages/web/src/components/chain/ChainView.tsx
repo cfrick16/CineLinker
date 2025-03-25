@@ -11,8 +11,7 @@ function ActorNode({ actor }: { actor: Actor }) {
   return (
     <div className={`chain-node actor`}>          
       <img 
-          src={actor.imageUrl} 
-          alt={actor.name}
+          src={actor.imageUrl ?? '/images/default-actor.svg'} 
           className={`node-image actor`}
           onError={(e) => { e.currentTarget.src = '/images/default-actor.svg' }}
       />
@@ -27,8 +26,7 @@ function MovieNode({ movie }: { movie: Movie }) {
   return (
     <div className={`chain-node movie`}>          
       <img 
-          src={movie.imageUrl} 
-          alt={movie.title}
+          src={movie.imageUrl ?? '/images/default-movie.svg'} 
           className={`node-image movie`}
           onError={(e) => { e.currentTarget.src = '/images/default-movie.svg' }}
       />

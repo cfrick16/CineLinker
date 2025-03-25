@@ -36,7 +36,6 @@ export function SearchBarView({ model, actions }: SearchBarProps) {
     >
       <img
         src={result.imageUrl || getDefaultImage(result.entityType)}
-        alt={result.text}
         className={`result-image ${result.entityType}`}
         onError={(e) => {
           e.currentTarget.src = getDefaultImage(result.entityType);
@@ -58,18 +57,12 @@ export function SearchBarView({ model, actions }: SearchBarProps) {
           value={model.query}
           onChange={handleInputChange}
           placeholder="Search movies and actors..."
-          className={`search-input ${model.isLoading ? 'loading' : ''}`}
+          className={`search-input`}
         />
         {model.isLoading && (
           <div className="loading-indicator" />
         )}
       </div>
-
-      {model.error && (
-        <div className="error-message">
-          <span>⚠️</span> {model.error}
-        </div>
-      )}
 
       {model.searchResults.length > 0 && (
         <div className="search-results">

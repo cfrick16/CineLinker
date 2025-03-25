@@ -5,7 +5,7 @@ export const sampleActors: Actor[] = [
   {
     id: "a1",
     name: "Morgan Freeman",
-    movieIds: ["m1", "m4"],
+    movieIds: ["m1", "m4", "m6"],
     imageUrl: "https://m.media-amazon.com/images/M/MV5BMTc0MDMyMzI2OF5BMl5BanBnXkFtZTcwMzM2OTk1MQ@@._V1_FMjpg_UX1000_.jpg"
   },
   {
@@ -16,7 +16,7 @@ export const sampleActors: Actor[] = [
   {
     id: "a3",
     name: "Scarlett Johansson",
-    movieIds: ["m3", "m2"]
+    movieIds: ["m3", "m2", "m6"]
   },
   {
     id: "a4",
@@ -58,5 +58,11 @@ export const sampleMovies: Movie[] = [
     year: 2016,
     actorIds: [],
     imageUrl: "https://m.media-amazon.com/images/M/MV5BMTI0MWNjYTItZWFiMC00ZjczLTg3MTQtNDg0YjUzN2YyYzM3XkEyXkFqcGc@._V1_.jpg"
+  },
+  {
+    id: "m6",
+    title: "Lucy",
+    year: 2014,
+    actorIds: ["a1", "a3"],
   }
 ];

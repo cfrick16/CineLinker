@@ -13,7 +13,6 @@ export function useSearchBarController({submitGuess}: SearchBarControllerProps):
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
-  const [error, setError] = useState<string>();
 
   const performSearch = async (searchQuery: string) => {
     if (!searchQuery.trim()) {
@@ -22,7 +21,6 @@ export function useSearchBarController({submitGuess}: SearchBarControllerProps):
     }
 
     setIsLoading(true);
-    setError(undefined);
 
     try {
       const response: Response = await fetch(`/api/searchMoviesAndActors?searchQuery=${encodeURIComponent(searchQuery)}`);
@@ -31,10 +29,10 @@ export function useSearchBarController({submitGuess}: SearchBarControllerProps):
       if (data.status === 'success' && data.results != null) {
         setSearchResults(data.results.slice(0, MAX_RESULTS));
       } else {
-        setError('Search failed: ' + response);
+        console.error('Search failed: ' + response);
       }
     } catch (err) {
-      setError('Network error');
+      console.error('Network error');
     } finally {
       setIsLoading(false);
     }
@@ -64,7 +62,7 @@ export function useSearchBarController({submitGuess}: SearchBarControllerProps):
   }, [submitGuess]);
 
   return [
-    { query, isLoading, searchResults, error },
+    { query, isLoading, searchResults },
     { handleQueryChange, onResultClick }
   ];
 } 
