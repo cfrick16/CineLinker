@@ -30,7 +30,8 @@ export class SearchService {
         if(tmdbResponse.media_type === 'movie') {
             return {
                 id: tmdbResponse.id.toString(),
-                text: (tmdbResponse as TmdbMovieSearchResult).title,
+                text: (tmdbResponse as TmdbMovieSearchResult).title 
+                    + ' (' + (tmdbResponse as TmdbMovieSearchResult).release_date.substring(0,4) + ')',
                 entityType: EntityType.Movie
               };
         } else if(tmdbResponse.media_type === 'person') {
