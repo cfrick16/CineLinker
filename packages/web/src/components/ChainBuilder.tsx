@@ -4,15 +4,20 @@ import { Chain } from './chain';
 import { convertToChainNode, isEntityRelated, getEntity } from '../common/entityFunctions';
 import { ChainNode } from './chain/ChainModel';
 import { useEffect, useState } from 'react';
-
+import { GuessCounter } from './guessCount';
+import './ChainBuilder.css';
 
 export function ChainBuilder() {
+  const [failedResult, setFailedResult] = useState<SearchResult | null>(null);
+  const [guessCount, setGuessCount] = useState(0);
+  const [invalidGuessCount, setInvalidGuessCount] = useState(0);
 
   const [leftNodes, setLeftNodes] = useState<ChainNode[]>([]);  
   const [rightNodes, setRightNodes] = useState<ChainNode[]>([]);
   const [centerNode, setCenterNode] = useState<ChainNode | null>(null);
 
   const submitGuess = async (result: SearchResult) => {
+    setGuessCount(prev => prev + 1);
     const entity = await getEntity(result);
     const node = convertToChainNode(entity, result.entityType);
 
@@ -29,7 +34,11 @@ export function ChainBuilder() {
     } else if(isConnectedRight) {
       setRightNodes([node, ...rightNodes]);
     } else {
-      console.error('No connection found');
+      setInvalidGuessCount(prev => prev + 1);
+      // Show failure animation
+      setFailedResult(result);
+      // Reset after animation completes
+      setTimeout(() => setFailedResult(null), 400);
     }
   };
 
@@ -43,14 +52,22 @@ export function ChainBuilder() {
         setLeftNodes([startNode]);
         setRightNodes([endNode]);
       });
-
-
-  }, [])
+  }, []);
 
   return (
-    <div className="chain-builder">
-      <SearchBar submitGuess={submitGuess} />
-      <Chain leftNodes={leftNodes} setLeftNodes={setLeftNodes} rightNodes={rightNodes} setRightNodes={setRightNodes} centerNode={centerNode} setCenterNode={setCenterNode} />
+    <div className={`chain-builder${failedResult != null ? '-connection-failed' : '' }`}>
+      <div className="header">
+        <div className="search-area">
+          <SearchBar submitGuess={submitGuess} />
+        </div>
+        <div className="guess-counter">
+          <GuessCounter 
+            totalGuesses={guessCount} 
+            invalidGuesses={invalidGuessCount} 
+          />
+        </div>
+      </div>
+      <Chain leftNodes={leftNodes} rightNodes={rightNodes} centerNode={centerNode} setLeftNodes={setLeftNodes} setRightNodes={setRightNodes} setCenterNode={setCenterNode} />
     </div>
   );
 } 

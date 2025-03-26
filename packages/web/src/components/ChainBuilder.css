@@ -1,0 +1,39 @@
+/* ChainBuilder.css */
+.chain-builder {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+  
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #e5e7eb;
+    position: relative;
+}
+
+.search-area {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+
+}
+
+.guess-counter {
+    margin-left: 16px; /* Add some space between SearchBar and GuessCounter */
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+}
+  
+.chain-builder-connection-failed {
+    animation: shake 0.4s ease-in-out;
+    position: relative;
+}
+  
