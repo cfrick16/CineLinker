@@ -1,17 +1,16 @@
 import { Actor } from '@cinelinker/shared';
-import { sampleActors } from '../mockdata/sampleData';
+import { tmdbWrapper } from './TmdbWrapper';
 
 export class ActorsService {
   async getActorById(id: string): Promise<Actor | undefined> {
-    return sampleActors.find(actor => actor.id === id);
-  }
+    const personDetails = await tmdbWrapper.fetchPersonDetails(parseInt(id));
 
-  // Search Actors by title
-  async searchActors(query: string): Promise<Actor[]> {
-    const lowercaseQuery = query.toLowerCase();
-    return sampleActors.filter(actor => 
-      actor.name.toLowerCase().includes(lowercaseQuery)
-    );
+    return {
+      id: personDetails.id.toString(),
+      name: personDetails.name,
+      movieIds: personDetails.movie_credits.cast.map((movie: {id: number}) => movie.id.toString()),
+      imageUrl: await tmdbWrapper.getImageUrl(personDetails.images.profiles),
+    }
   }
 }
 

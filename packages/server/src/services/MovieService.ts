@@ -1,18 +1,17 @@
 import { Movie } from '@cinelinker/shared';
-import { sampleMovies } from '../mockdata/sampleData';
-
+import { tmdbWrapper } from './TmdbWrapper';
 export class MovieService {
 
   async getMovieById(id: string): Promise<Movie | undefined> {
-    return sampleMovies.find(movie => movie.id === id);
-  }
+    const movieDetails = await tmdbWrapper.fetchMovieDetails(parseInt(id));
 
-  // Search movies by title
-  async searchMovies(query: string): Promise<Movie[]> {
-      const lowercaseQuery = query.toLowerCase();
-      return sampleMovies.filter(movie => 
-        movie.title.toLowerCase().includes(lowercaseQuery)
-    );
+    return {
+      id: movieDetails.id.toString(),
+      title: movieDetails.title,
+      year: parseInt(movieDetails.release_date.substring(0,4)),
+      actorIds: movieDetails.credits.cast.map((cast) => cast.id.toString()),
+      imageUrl: await tmdbWrapper.getImageUrl(movieDetails.images.backdrops),
+    }
   }
 }
 

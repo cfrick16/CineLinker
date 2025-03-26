@@ -3,7 +3,8 @@ import cors from 'cors';
 import { SearchMoviesAndActorsRequest, SearchMoviesAndActorsResponse, 
   GetMovieByIdRequest, GetMovieByIdResponse, 
   GetActorByIdRequest, GetActorByIdResponse,
-  GetDailyChallengeRequest, GetDailyChallengeResponse
+  GetDailyChallengeRequest, GetDailyChallengeResponse,
+  GetDailyChallengeResponseBody
 } from '@cinelinker/shared'; 
 import { actorsService } from './services/ActorsService';
 import { searchService } from './services/SearchService';
@@ -39,8 +40,9 @@ app.get('/api/getActorById', (req: GetActorByIdRequest, res: GetActorByIdRespons
 });
 
 app.get('/api/getDailyChallenge', (req: GetDailyChallengeRequest, res: GetDailyChallengeResponse) => {
-  console.log(req.query.date);
-  res.json(dailyChallengeService.getDailyChallenge(req.query.date));
+  dailyChallengeService.getDailyChallenge(req.query.date).then((challenge: GetDailyChallengeResponseBody) => {
+    res.json(challenge);
+  });
 });
 
 app.listen(port, () => {

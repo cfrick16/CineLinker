@@ -72,7 +72,6 @@ export function ChainView({ model, actions }: ChainViewProps) {
   };
 
   if (centerNode != null) {
-    console.log(centerNode);
     // Show complete connected chain
     const allNodes = [...leftNodes, centerNode, ...rightNodes];
     return (

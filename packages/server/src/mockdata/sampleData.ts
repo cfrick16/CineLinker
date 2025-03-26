@@ -3,7 +3,7 @@ import { Movie, Actor } from '@cinelinker/shared';
 // Sample Actors
 export const sampleActors: Actor[] = [
   {
-    id: "a1",
+    id: "192",
     name: "Morgan Freeman",
     movieIds: ["m1", "m4", "m6"],
     imageUrl: "https://m.media-amazon.com/images/M/MV5BMTc0MDMyMzI2OF5BMl5BanBnXkFtZTcwMzM2OTk1MQ@@._V1_FMjpg_UX1000_.jpg"
@@ -14,7 +14,7 @@ export const sampleActors: Actor[] = [
     movieIds: ["m2", "m4"]
   },
   {
-    id: "a3",
+    id: "1245",
     name: "Scarlett Johansson",
     movieIds: ["m3", "m2", "m6"]
   },

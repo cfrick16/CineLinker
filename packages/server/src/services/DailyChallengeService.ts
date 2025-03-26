@@ -1,23 +1,26 @@
 import { ISOString, GetDailyChallengeResponseBody, EntityType } from '@cinelinker/shared';
 import { sampleMovies, sampleActors } from '../mockdata/sampleData';
+import { actorsService } from './ActorsService';
 
 export class DailyChallengeService {
   private useHardcodedExample = true;
 
-  getDailyChallengeHardcoded(): GetDailyChallengeResponseBody {
+  async getDailyChallengeHardcoded(): Promise<GetDailyChallengeResponseBody> {
+    const scarlettJohanson = await actorsService.getActorById("1245")
+    const morgenFreeman = await actorsService.getActorById("192")
     return {
       status: 'success',
-      start: sampleActors.find(actor => actor.name === 'Morgan Freeman')!!,
+      start: morgenFreeman!,
       startType: EntityType.Actor,
-      end: sampleActors.find(actor => actor.name === "Scarlett Johansson")!!,
+      end: scarlettJohanson!,
       endType: EntityType.Actor,
       date: '2025-03-25' as ISOString
     }
   }
   // For now this will return a challenge for the current day randomly based on a hash of the date
-  getDailyChallenge(date?: string): GetDailyChallengeResponseBody {
+  async getDailyChallenge(date?: string): Promise<GetDailyChallengeResponseBody> {
     if(this.useHardcodedExample) {
-      return this.getDailyChallengeHardcoded();
+      return await this.getDailyChallengeHardcoded();
     }
 
     // Validate and parse date
