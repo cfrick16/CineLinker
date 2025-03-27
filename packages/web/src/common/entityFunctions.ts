@@ -1,7 +1,7 @@
 import { ChainNode } from "@/components/chain/ChainModel";
 import { EntityType, Movie, SearchResult } from "@cinelinker/shared";
-
 import { Actor } from "@cinelinker/shared";
+import { apiFetch } from "../utils/api";
 
 export const convertToChainNode = (entity: Actor | Movie, entityType: EntityType): ChainNode => {
     return {
@@ -12,9 +12,11 @@ export const convertToChainNode = (entity: Actor | Movie, entityType: EntityType
 
 export const getEntity = async (result: SearchResult): Promise<Actor | Movie> => {
     if(result.entityType === EntityType.Actor) {
-      return await fetch(`/api/getActorById?id=${result.id}`).then(response => response.json()).then(data => data.actor);
+      const data = await apiFetch(`/api/getActorById?id=${result.id}`);
+      return data.actor;
     } else {
-      return await fetch(`/api/getMovieById?id=${result.id}`).then(response => response.json()).then(data => data.movie);
+      const data = await apiFetch(`/api/getMovieById?id=${result.id}`);
+      return data.movie;
     }
   }
 

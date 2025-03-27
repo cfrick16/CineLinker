@@ -6,15 +6,16 @@ applications:
           commands:
             - npm install -g pnpm
             - pnpm install
+            - echo "VITE_API_URL=http://cinelinker-alb-1775777729.us-west-2.elb.amazonaws.com" > .env.production
         build:
           commands:
-            - pnpm --filter @cinelinker/client run build
+            - pnpm --filter @cinelinker/web run build
       artifacts:
-        baseDirectory: packages/client/dist
+        baseDirectory: dist
         files:
           - '**/*'
       cache:
         paths:
           - node_modules/**/*
-          - packages/client/node_modules/**/*
+          - packages/web/node_modules/**/*
     appRoot: . 

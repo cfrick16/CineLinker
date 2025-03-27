@@ -5,6 +5,7 @@ import { convertToChainNode, isEntityRelated, getEntity } from '../common/entity
 import { ChainNode } from './chain/ChainModel';
 import { useEffect, useState } from 'react';
 import { GuessCounter } from './guessCount';
+import { apiFetch } from '../utils/api';
 import './ChainBuilder.css';
 
 export function ChainBuilder() {
@@ -43,8 +44,7 @@ export function ChainBuilder() {
   };
 
   useEffect(() => {
-    fetch(`/api/getDailyChallenge?date=${new Date().toISOString()}`)
-      .then(response => response.json())
+    apiFetch(`/api/getDailyChallenge?date=${new Date().toISOString()}`)
       .then((data: GetDailyChallengeResponseBody) => {
         const startNode = convertToChainNode(data.start, data.startType);
         const endNode = convertToChainNode(data.end, data.endType);
