@@ -152,6 +152,74 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
+/* Stack cards when there are too many items (stacked class) */
+.chain-container.stacked .chain-left .chain-item {
+  margin-right: -150px;
+}
+
+.chain-container.stacked .chain-right .chain-item {
+  margin-left: -150px;
+}
+
+/* Dynamic vertical offset for left stack */
+.chain-container.stacked .chain-left .chain-item:nth-child(1) { margin-top: 0; }
+.chain-container.stacked .chain-left .chain-item:nth-child(2) { margin-top: 10px; }
+.chain-container.stacked .chain-left .chain-item:nth-child(3) { margin-top: 25px; }
+.chain-container.stacked .chain-left .chain-item:nth-child(4) { margin-top: 45px; }
+.chain-container.stacked .chain-left .chain-item:nth-child(5) { margin-top: 70px; }
+.chain-container.stacked .chain-left .chain-item:nth-child(6) { margin-top: 100px; }
+
+/* Dynamic vertical offset for right stack */
+.chain-container.stacked .chain-right .chain-item:nth-child(1) { margin-top: 0; }
+.chain-container.stacked .chain-right .chain-item:nth-child(2) { margin-top: 10px; }
+.chain-container.stacked .chain-right .chain-item:nth-child(3) { margin-top: 25px; }
+.chain-container.stacked .chain-right .chain-item:nth-child(4) { margin-top: 45px; }
+.chain-container.stacked .chain-right .chain-item:nth-child(5) { margin-top: 70px; }
+.chain-container.stacked .chain-right .chain-item:nth-child(6) { margin-top: 100px; }
+
+/* Success chain positioning with dynamic vertical offset */
+.chain-container.stacked.success .chain-item {
+  margin-right: -150px; /* Negative margin for overlap */
+}
+
+/* Dynamic vertical offset for success chain */
+.chain-container.stacked.success .chain-item:nth-child(1) { margin-top: 0; }
+.chain-container.stacked.success .chain-item:nth-child(2) { margin-top: 10px; }
+.chain-container.stacked.success .chain-item:nth-child(3) { margin-top: 25px; }
+.chain-container.stacked.success .chain-item:nth-child(4) { margin-top: 45px; }
+.chain-container.stacked.success .chain-item:nth-child(5) { margin-top: 70px; }
+.chain-container.stacked.success .chain-item:nth-child(6) { margin-top: 100px; }
+.chain-container.stacked.success .chain-item:nth-child(7) { margin-top: 135px; }
+.chain-container.stacked.success .chain-item:nth-child(8) { margin-top: 175px; }
+.chain-container.stacked.success .chain-item:nth-child(9) { margin-top: 220px; }
+.chain-container.stacked.success .chain-item:nth-child(10) { margin-top: 270px; }
+
+/* Left stack clipping */
+.chain-container.stacked .chain-left .chain-item:not(:last-child) .chain-node {
+  clip-path: inset(0 70% 0 0);
+}
+
+/* Right stack clipping */
+.chain-container.stacked .chain-right .chain-item:not(:first-child) .chain-node {
+  clip-path: inset(0 0 0 70%);
+}
+
+/* Hover effect to show more of the card */
+.chain-container.stacked .chain-left .chain-item:hover .chain-node {
+  clip-path: inset(0 0 0 0); /* Show the entire card on hover */
+}
+
+.chain-container.stacked .chain-right .chain-item:hover .chain-node {
+  clip-path: inset(0 0 0 0); /* Show the entire card on hover */
+}
+
+/* Show the last card on left and first card on right fully */
+.chain-container.stacked .chain-left .chain-item:last-child .chain-node,
+.chain-container.stacked .chain-right .chain-item:first-child .chain-node {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+}
+
 /* Stack cards when screen is smaller than 1200px */
 @media (max-width: 1200px) {
   /* Left stack items overlap to the right with dynamic vertical offset */

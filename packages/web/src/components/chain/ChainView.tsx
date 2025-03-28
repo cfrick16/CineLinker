@@ -74,8 +74,13 @@ export function ChainView({ model, actions }: ChainViewProps) {
   if (centerNode != null) {
     // Show complete connected chain
     const allNodes = [...leftNodes, centerNode, ...rightNodes];
+    
+    // Determine if we need to stack the cards based on the number of items
+    // If there are more than 6 items total, we'll stack them
+    const shouldStack = allNodes.length > 6;
+    
     return (
-      <div className="chain-container success">
+      <div className={`chain-container success ${shouldStack ? 'stacked' : ''}`}>
         {allNodes.map((node, idx) => {
           // Add a special class for the center node
           const isCenterNode = idx === Math.floor(allNodes.length / 2);
@@ -97,8 +102,12 @@ export function ChainView({ model, actions }: ChainViewProps) {
     );
   }
 
+  // Determine if we need to stack the cards based on the number of items
+  // If there are more than 4 items total, we'll stack them
+  const shouldStack = leftNodes.length + rightNodes.length > 4;
+  
   return (
-    <div className="chain-container">
+    <div className={`chain-container ${shouldStack ? 'stacked' : ''}`}>
       <div className="chain-left">
         {leftNodes.map((node, idx) => 
           renderNode(node, idx === leftNodes.length - 1, idx !== 0)
