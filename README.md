@@ -27,6 +27,18 @@ This is a monorepo containing the following packages:
    pnpm build
    ```
 
+
+Deploy Frontend -> 
+cd packages/web && ./build.sh
+cd dist && zip -r ../web-app.zip . && cd ..
+Add web-app.zip to amplify
+
+
+Deploy Backend -> 
+cd packages/server && chmod +x deploy.sh
+./deploy.sh
+
+
 ## Available Scripts
 
 - `pnpm dev`: Start all packages in development mode
