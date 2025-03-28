@@ -1,0 +1,77 @@
+name: Development Deployment
+
+on:
+  push:
+    branches:
+      - develop
+      - 'feature/**'
+  workflow_dispatch:
+
+jobs:
+  deploy-dev:
+    name: Deploy to Development
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+      
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+      
+      - name: Install dependencies
+        run: pnpm install
+      
+      - name: Lint
+        run: pnpm lint
+      
+      - name: Build
+        run: pnpm build
+        env:
+          NODE_ENV: development
+      
+      # Deploy server to development environment
+      - name: Deploy Server
+        run: |
+          echo "Deploying server to development environment"
+          # Add your deployment commands here
+          # Examples:
+          # - SSH into dev server and update code
+          # - Deploy to a cloud service like Heroku, Render, etc.
+          # - Use a service-specific action
+        env:
+          # Add any environment variables needed for deployment
+          SERVER_DEPLOY_KEY: ${{ secrets.DEV_SERVER_DEPLOY_KEY }}
+          SERVER_DEPLOY_URL: ${{ secrets.DEV_SERVER_DEPLOY_URL }}
+      
+      # Deploy web app to development environment
+      - name: Deploy Web App
+        run: |
+          echo "Deploying web app to development environment"
+          # Add your deployment commands here
+          # Examples:
+          # - Deploy to Netlify, Vercel, GitHub Pages, etc.
+          # - Use a service-specific action
+        env:
+          # Add any environment variables needed for deployment
+          WEB_DEPLOY_TOKEN: ${{ secrets.DEV_WEB_DEPLOY_TOKEN }}
+          WEB_DEPLOY_URL: ${{ secrets.DEV_WEB_DEPLOY_URL }}
+      
+      - name: Notify Deployment Status
+        if: always()
+        run: |
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "Development deployment successful!"
+          else
+            echo "Development deployment failed!"
+          fi
+          # Add notification commands (Slack, Discord, email, etc.)
