@@ -76,7 +76,23 @@ export function ChainView({ model, actions }: ChainViewProps) {
     const allNodes = [...leftNodes, centerNode, ...rightNodes];
     return (
       <div className="chain-container success">
-        {allNodes.map((node, idx) => renderNode(node, idx === allNodes.length - 1, false))}
+        {allNodes.map((node, idx) => {
+          // Add a special class for the center node
+          const isCenterNode = idx === Math.floor(allNodes.length / 2);
+          const nodeClass = isCenterNode ? "center-node" : "";
+          
+          return (
+            <div key={node.entity.id} className={`chain-item ${nodeClass}`}>
+              <div className="chain-node-wrapper">
+                {node.entityType === EntityType.Actor ? (
+                  <ActorNode actor={node.entity as Actor} />
+                ) : (
+                  <MovieNode movie={node.entity as Movie} />
+                )}
+              </div>
+            </div>
+          );
+        })}
       </div>
     );
   }
@@ -95,4 +111,4 @@ export function ChainView({ model, actions }: ChainViewProps) {
       </div>
     </div>
   );
-} 
+}

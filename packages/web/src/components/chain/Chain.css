@@ -2,10 +2,11 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 1rem;
   padding: 2rem;
   overflow-x: auto;
   max-width: 100%;
+  position: relative;
+  min-height: 250px; /* Ensure enough height for the stacked cards */
 }
 
 .chain-container.success {
@@ -42,8 +43,9 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 1rem;
   flex: 1;
+  position: relative;
+  height: 100%;
 }
 
 .chain-right {
@@ -51,9 +53,42 @@
 }
 
 .chain-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+  position: relative;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+/* Left stack items overlap to the right */
+.chain-left .chain-item {
+  margin-right: -150px;
+}
+
+/* Right stack items overlap to the left */
+.chain-right .chain-item {
+  margin-left: -150px;
+}
+
+.chain-item:last-child {
+  margin-right: 0;
+}
+
+.chain-item:first-child {
+  margin-left: 0;
+}
+
+/* Success chain positioning */
+.chain-container.success .chain-item {
+  position: relative;
+  margin-right: -150px; /* Negative margin for overlap */
+  z-index: 1;
+}
+
+.chain-container.success .chain-item:last-child {
+  margin-right: 0;
+}
+
+.chain-container.success .chain-item:nth-child(odd) {
+  z-index: 2;
 }
 
 .chain-node {
@@ -65,8 +100,54 @@
   background-color: var(--bg-secondary);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.3s ease;
   min-width: 200px;
+  opacity: 0.9; /* Add transparency to all cards */
+}
+
+/* Left stack clipping */
+.chain-left .chain-item:not(:last-child) .chain-node {
+  clip-path: inset(0 70% 0 0);
+}
+
+/* Right stack clipping */
+.chain-right .chain-item:not(:first-child) .chain-node {
+  clip-path: inset(0 0 0 70%);
+}
+
+/* Hover effect to show more of the card */
+.chain-left .chain-item:hover .chain-node {
+  clip-path: inset(0 0 0 0); /* Show the entire card on hover */
+  transform: translateY(-10px);
+  z-index: 20 !important; /* Higher z-index to ensure it appears on top */
+  opacity: 1;
+}
+
+.chain-right .chain-item:hover .chain-node {
+  clip-path: inset(0 0 0 0); /* Show the entire card on hover */
+  transform: translateY(-10px);
+  z-index: 20 !important; /* Higher z-index to ensure it appears on top */
+  opacity: 1;
+}
+
+/* Make sure the hover works for all items in the stack */
+.chain-item:hover {
+  z-index: 20 !important; /* Higher z-index to ensure it appears on top */
+}
+
+/* Show the last card on left and first card on right fully */
+.chain-left .chain-item:last-child .chain-node,
+.chain-right .chain-item:first-child .chain-node {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+}
+
+/* Middle node always fully visible */
+.chain-container.success .chain-item.center-node .chain-node {
+  clip-path: inset(0 0 0 0);
+  z-index: 10;
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .chain-node.movie {
@@ -139,10 +220,8 @@
 }
 
 .chain-connection {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
+  margin-left: -120px; /* Pull connection line back to connect with previous card */
+  z-index: 0;
 }
 
 .connection-line {
@@ -150,6 +229,10 @@
   height: 2px;
   background-color: #278210;
   position: relative;
+}
+
+.chain-container.success .connection-line {
+  background-color: #10b981;
 }
 
 .connection-line::before,
