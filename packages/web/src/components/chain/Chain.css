@@ -56,17 +56,30 @@
   position: relative;
   transition: all 0.3s ease;
   z-index: 1;
+  margin-right: 20px; /* Default spacing between cards */
+  margin-left: 20px; /* Default spacing between cards */
 }
 
-/* Left stack items overlap to the right */
-.chain-left .chain-item {
-  margin-right: -150px;
-}
-
-/* Right stack items overlap to the left */
+/* Default spacing for all screen sizes */
+.chain-left .chain-item,
 .chain-right .chain-item {
-  margin-left: -150px;
+  margin-top: 0;
 }
+
+/* Ensure proper stacking order - each subsequent item should be on top */
+.chain-left .chain-item:nth-child(1) { z-index: 1; }
+.chain-left .chain-item:nth-child(2) { z-index: 2; }
+.chain-left .chain-item:nth-child(3) { z-index: 3; }
+.chain-left .chain-item:nth-child(4) { z-index: 4; }
+.chain-left .chain-item:nth-child(5) { z-index: 5; }
+.chain-left .chain-item:nth-child(6) { z-index: 6; }
+
+.chain-right .chain-item:nth-child(1) { z-index: 6; }
+.chain-right .chain-item:nth-child(2) { z-index: 5; }
+.chain-right .chain-item:nth-child(3) { z-index: 4; }
+.chain-right .chain-item:nth-child(4) { z-index: 3; }
+.chain-right .chain-item:nth-child(5) { z-index: 2; }
+.chain-right .chain-item:nth-child(6) { z-index: 1; }
 
 .chain-item:last-child {
   margin-right: 0;
@@ -79,16 +92,23 @@
 /* Success chain positioning */
 .chain-container.success .chain-item {
   position: relative;
-  margin-right: -150px; /* Negative margin for overlap */
-  z-index: 1;
+  margin-right: 20px; /* Default spacing between cards */
 }
+
+/* Ensure proper stacking order in success state - each subsequent item should be on top */
+.chain-container.success .chain-item:nth-child(1) { z-index: 1; }
+.chain-container.success .chain-item:nth-child(2) { z-index: 2; }
+.chain-container.success .chain-item:nth-child(3) { z-index: 3; }
+.chain-container.success .chain-item:nth-child(4) { z-index: 4; }
+.chain-container.success .chain-item:nth-child(5) { z-index: 5; }
+.chain-container.success .chain-item:nth-child(6) { z-index: 6; }
+.chain-container.success .chain-item:nth-child(7) { z-index: 7; }
+.chain-container.success .chain-item:nth-child(8) { z-index: 8; }
+.chain-container.success .chain-item:nth-child(9) { z-index: 9; }
+.chain-container.success .chain-item:nth-child(10) { z-index: 10; }
 
 .chain-container.success .chain-item:last-child {
   margin-right: 0;
-}
-
-.chain-container.success .chain-item:nth-child(odd) {
-  z-index: 2;
 }
 
 .chain-node {
@@ -101,30 +121,19 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.3s ease;
-  min-width: 200px;
+  width: 180px; /* Fixed width for all cards */
+  height: 220px; /* Fixed height for all cards */
   opacity: 0.9; /* Add transparency to all cards */
 }
 
-/* Left stack clipping */
-.chain-left .chain-item:not(:last-child) .chain-node {
-  clip-path: inset(0 70% 0 0);
+/* By default, no clipping */
+.chain-left .chain-item .chain-node,
+.chain-right .chain-item .chain-node {
+  clip-path: inset(0 0 0 0);
 }
 
-/* Right stack clipping */
-.chain-right .chain-item:not(:first-child) .chain-node {
-  clip-path: inset(0 0 0 70%);
-}
-
-/* Hover effect to show more of the card */
-.chain-left .chain-item:hover .chain-node {
-  clip-path: inset(0 0 0 0); /* Show the entire card on hover */
-  transform: translateY(-10px);
-  z-index: 20 !important; /* Higher z-index to ensure it appears on top */
-  opacity: 1;
-}
-
-.chain-right .chain-item:hover .chain-node {
-  clip-path: inset(0 0 0 0); /* Show the entire card on hover */
+/* Hover effect */
+.chain-item:hover .chain-node {
   transform: translateY(-10px);
   z-index: 20 !important; /* Higher z-index to ensure it appears on top */
   opacity: 1;
@@ -135,19 +144,99 @@
   z-index: 20 !important; /* Higher z-index to ensure it appears on top */
 }
 
-/* Show the last card on left and first card on right fully */
-.chain-left .chain-item:last-child .chain-node,
-.chain-right .chain-item:first-child .chain-node {
-  clip-path: inset(0 0 0 0);
-  opacity: 1;
-}
-
 /* Middle node always fully visible */
 .chain-container.success .chain-item.center-node .chain-node {
   clip-path: inset(0 0 0 0);
   z-index: 10;
   transform: translateY(-5px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Stack cards when screen is smaller than 1200px */
+@media (max-width: 1200px) {
+  /* Left stack items overlap to the right with dynamic vertical offset */
+  .chain-left .chain-item {
+    margin-right: -150px;
+  }
+
+  /* Right stack items overlap to the left with dynamic vertical offset */
+  .chain-right .chain-item {
+    margin-left: -150px;
+  }
+
+  /* Dynamic vertical offset for left stack */
+  .chain-left .chain-item:nth-child(1) { margin-top: 0; }
+  .chain-left .chain-item:nth-child(2) { margin-top: 10px; }
+  .chain-left .chain-item:nth-child(3) { margin-top: 25px; }
+  .chain-left .chain-item:nth-child(4) { margin-top: 45px; }
+  .chain-left .chain-item:nth-child(5) { margin-top: 70px; }
+  .chain-left .chain-item:nth-child(6) { margin-top: 100px; }
+
+  /* Dynamic vertical offset for right stack */
+  .chain-right .chain-item:nth-child(1) { margin-top: 0; }
+  .chain-right .chain-item:nth-child(2) { margin-top: 10px; }
+  .chain-right .chain-item:nth-child(3) { margin-top: 25px; }
+  .chain-right .chain-item:nth-child(4) { margin-top: 45px; }
+  .chain-right .chain-item:nth-child(5) { margin-top: 70px; }
+  .chain-right .chain-item:nth-child(6) { margin-top: 100px; }
+
+  /* Success chain positioning with dynamic vertical offset */
+  .chain-container.success .chain-item {
+    margin-right: -150px; /* Negative margin for overlap */
+  }
+
+  /* Dynamic vertical offset for success chain */
+  .chain-container.success .chain-item:nth-child(1) { margin-top: 0; }
+  .chain-container.success .chain-item:nth-child(2) { margin-top: 10px; }
+  .chain-container.success .chain-item:nth-child(3) { margin-top: 25px; }
+  .chain-container.success .chain-item:nth-child(4) { margin-top: 45px; }
+  .chain-container.success .chain-item:nth-child(5) { margin-top: 70px; }
+  .chain-container.success .chain-item:nth-child(6) { margin-top: 100px; }
+  .chain-container.success .chain-item:nth-child(7) { margin-top: 135px; }
+  .chain-container.success .chain-item:nth-child(8) { margin-top: 175px; }
+  .chain-container.success .chain-item:nth-child(9) { margin-top: 220px; }
+  .chain-container.success .chain-item:nth-child(10) { margin-top: 270px; }
+
+  /* Left stack clipping */
+  .chain-left .chain-item:not(:last-child) .chain-node {
+    clip-path: inset(0 70% 0 0);
+  }
+
+  /* Right stack clipping */
+  .chain-right .chain-item:not(:first-child) .chain-node {
+    clip-path: inset(0 0 0 70%);
+  }
+
+  /* Hover effect to show more of the card */
+  .chain-left .chain-item:hover .chain-node {
+    clip-path: inset(0 0 0 0); /* Show the entire card on hover */
+  }
+
+  .chain-right .chain-item:hover .chain-node {
+    clip-path: inset(0 0 0 0); /* Show the entire card on hover */
+  }
+
+  /* Show the last card on left and first card on right fully */
+  .chain-left .chain-item:last-child .chain-node,
+  .chain-right .chain-item:first-child .chain-node {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+/* Even more stacking for smaller screens */
+@media (max-width: 768px) {
+  .chain-left .chain-item:nth-child(2) { margin-top: 15px; }
+  .chain-left .chain-item:nth-child(3) { margin-top: 35px; }
+  .chain-left .chain-item:nth-child(4) { margin-top: 60px; }
+  .chain-left .chain-item:nth-child(5) { margin-top: 90px; }
+  .chain-left .chain-item:nth-child(6) { margin-top: 125px; }
+  
+  .chain-right .chain-item:nth-child(2) { margin-top: 15px; }
+  .chain-right .chain-item:nth-child(3) { margin-top: 35px; }
+  .chain-right .chain-item:nth-child(4) { margin-top: 60px; }
+  .chain-right .chain-item:nth-child(5) { margin-top: 90px; }
+  .chain-right .chain-item:nth-child(6) { margin-top: 125px; }
 }
 
 .chain-node.movie {
@@ -163,27 +252,30 @@
 }
 
 .node-image {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
   background-color: var(--bg-tertiary);
 }
 
+/* Make all images the same size */
 .node-image.movie {
-  aspect-ratio: 2/3;
-  width: 80px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
 }
 
 .node-image.actor {
-  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  border-radius: 0.5rem; /* Use same border radius as movies */
 }
 
 .node-image-placeholder {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -194,14 +286,16 @@
   color: var(--text-secondary);
 }
 
+/* Make all placeholders the same size */
 .node-image-placeholder.movie {
-  aspect-ratio: 2/3;
-  width: 80px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
 }
 
 .node-image-placeholder.actor {
-  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  border-radius: 0.5rem; /* Use same border radius as movies */
 }
 
 .node-details {
@@ -222,6 +316,13 @@
 .chain-connection {
   margin-left: -120px; /* Pull connection line back to connect with previous card */
   z-index: 0;
+}
+
+/* Adjust connection line for non-stacked layout */
+@media (min-width: 1201px) {
+  .chain-connection {
+    margin-left: 0;
+  }
 }
 
 .connection-line {
