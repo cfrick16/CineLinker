@@ -56,6 +56,7 @@ export function ChainView({ model, actions }: ChainViewProps) {
             className="remove-node" 
             onClick={() => actions.removeNode(node)}
             title="Remove this and following nodes"
+            aria-label="Remove this and following nodes"
           >
             ×
           </button>
@@ -95,4 +96,4 @@ export function ChainView({ model, actions }: ChainViewProps) {
       </div>
     </div>
   );
-} 
+}
