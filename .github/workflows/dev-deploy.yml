@@ -28,43 +28,44 @@ jobs:
           node-version: '20'
           cache: 'pnpm'
       
-      - name: Install dependencies
-        run: pnpm install
-      
       - name: Lint
         run: pnpm lint
       
       - name: Build
-        run: pnpm build
-        env:
-          NODE_ENV: development
+        run: .github/scripts/build.sh
       
-      # Deploy server to development environment
-      - name: Deploy Server
+      # Install AWS CLI
+      - name: Install AWS CLI
         run: |
-          echo "Deploying server to development environment"
-          # Add your deployment commands here
-          # Examples:
-          # - SSH into dev server and update code
-          # - Deploy to a cloud service like Heroku, Render, etc.
-          # - Use a service-specific action
-        env:
-          # Add any environment variables needed for deployment
-          SERVER_DEPLOY_KEY: ${{ secrets.DEV_SERVER_DEPLOY_KEY }}
-          SERVER_DEPLOY_URL: ${{ secrets.DEV_SERVER_DEPLOY_URL }}
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+          aws --version
       
-      # Deploy web app to development environment
-      - name: Deploy Web App
-        run: |
-          echo "Deploying web app to development environment"
-          # Add your deployment commands here
-          # Examples:
-          # - Deploy to Netlify, Vercel, GitHub Pages, etc.
-          # - Use a service-specific action
+      # Install jq for JSON processing
+      - name: Install jq
+        run: sudo apt-get install -y jq
+      
+      # Deploy server to AWS ECR
+      - name: Deploy Server to AWS ECR
+        run: .github/scripts/deploy-server.sh
         env:
-          # Add any environment variables needed for deployment
-          WEB_DEPLOY_TOKEN: ${{ secrets.DEV_WEB_DEPLOY_TOKEN }}
-          WEB_DEPLOY_URL: ${{ secrets.DEV_WEB_DEPLOY_URL }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          ECR_REPOSITORY: ${{ secrets.DEV_ECR_REPOSITORY }}
+          IMAGE_TAG: ${{ github.sha }}
+      
+      # Deploy web app to AWS Amplify
+      - name: Deploy Web App to AWS Amplify
+        run: .github/scripts/deploy-web.sh
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AMPLIFY_APP_ID: ${{ secrets.DEV_AMPLIFY_APP_ID }}
+          AMPLIFY_BRANCH: ${{ secrets.DEV_AMPLIFY_BRANCH }}
+          ENVIRONMENT: "development"
       
       - name: Notify Deployment Status
         if: always()
