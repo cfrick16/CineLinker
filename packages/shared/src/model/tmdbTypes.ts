@@ -11,6 +11,7 @@ export interface TmdbPersonSearchResult extends TmdbSearchResult {
 
 export interface TmdbMovieSearchResult extends TmdbSearchResult {
     title: string;
+    release_date: string;
 }
 
 export interface TmdbImageResponse {
