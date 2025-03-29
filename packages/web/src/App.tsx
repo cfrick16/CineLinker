@@ -25,24 +25,28 @@ function App() {
 
   return (
     <div style={{ width: '100%', height: '100%' }}>
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        padding: '16px', 
-        position: 'relative', 
-        height: '9vh',
-        borderBottom: '1px solid var(--color-border)',
-        backgroundColor: 'var(--color-bg-secondary)'
-      }}>
+      <div 
+        className="app-header"
+        style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          padding: '16px', 
+          position: 'relative', 
+          height: '9vh',
+          borderBottom: '1px solid var(--color-border)',
+          backgroundColor: 'var(--color-bg-secondary)'
+        }}
+      >
         <h1 style={{ 
           margin: 0, 
           position: 'absolute', 
           left: '50%', 
           transform: 'translateX(-50%)',
-          color: 'var(--color-text-primary)'
+          color: 'var(--color-text-primary)',
+          fontSize: 'clamp(1.5rem, 5vw, 2.5rem)'
         }}>
-          CineLinker
+          Degrees
         </h1>
         <button 
           onClick={() => setIsDemoOpen(true)}

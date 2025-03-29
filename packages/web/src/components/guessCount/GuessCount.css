@@ -6,6 +6,14 @@
   align-items: center;
 }
 
+/* Mobile styles */
+@media (max-width: 768px) {
+  .guess-counter-container {
+    margin: 12px auto;
+    gap: 5px;
+  }
+}
+
 .guess-counter {
   padding: 8px 16px;
   border-radius: var(--border-radius-full);
@@ -20,6 +28,26 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .guess-counter {
+    padding: 6px 12px;
+    font-size: 13px;
+    min-width: 150px;
+    gap: 6px;
+  }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+  .guess-counter {
+    padding: 5px 10px;
+    font-size: 12px;
+    min-width: 130px;
+    gap: 5px;
+  }
 }
 
 .guess-counter::before {
@@ -58,6 +86,22 @@
   position: relative;
   z-index: 2;
   box-shadow: var(--shadow-inner);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .guess-count {
+    padding: 2px 8px;
+    min-width: 20px;
+  }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+  .guess-count {
+    padding: 1px 6px;
+    min-width: 18px;
+  }
 }
 
 /* Make the labels a bit more subtle */

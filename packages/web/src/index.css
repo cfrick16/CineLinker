@@ -66,6 +66,13 @@ html, body, #root {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  -webkit-overflow-scrolling: touch; /* Improve scrolling on iOS */
+}
+
+/* Ensure proper sizing on mobile */
+* {
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+  box-sizing: border-box;
 }
 
 body {
@@ -95,11 +102,32 @@ code {
   text-align: center;
 }
 
+/* Mobile styles */
+@media (max-width: 768px) {
+  .app {
+    padding: 1rem;
+  }
+}
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
   margin-bottom: 1rem;
   color: var(--color-text-primary);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5em;
+  }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2em;
+  }
 }
 
 /* Theme Toggle Button */
@@ -120,6 +148,29 @@ h1 {
   box-shadow: var(--shadow-lg);
   z-index: 100;
   transition: all 0.2s ease;
+  font-size: 1.2rem;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .theme-toggle {
+    bottom: 1rem;
+    right: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+  .theme-toggle {
+    bottom: 0.75rem;
+    right: 0.75rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 0.9rem;
+  }
 }
 
 .theme-toggle:hover {
@@ -143,6 +194,32 @@ h1 {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+  .btn {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.85rem;
+  }
+  
+  /* Adjust app header for very small screens */
+  .app-header {
+    padding: 10px !important;
+  }
+  
+  .app-header button {
+    font-size: 0.8rem !important;
+    right: 0.5rem !important;
+  }
 }
 
 .btn-primary {
