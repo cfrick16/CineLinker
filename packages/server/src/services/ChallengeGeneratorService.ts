@@ -1,7 +1,5 @@
-import { Actor, EntityType, GetDailyChallengeResponseBody, ISOString, Movie } from '@cinelinker/shared';
-import { tmdbWrapper } from './TmdbWrapper';
+import { Actor, EntityType, GetDailyChallengeResponseBody, ISOString } from '@cinelinker/shared';
 import { actorsService } from './ActorsService';
-import { movieService } from './MovieService';
 
 interface ChallengeRating {
   difficulty: number;  // 1-10 scale (1 = easy, 10 = hard)

@@ -5,7 +5,6 @@ import { SearchMoviesAndActorsRequest, SearchMoviesAndActorsResponse,
   GetActorByIdRequest, GetActorByIdResponse,
   GetDailyChallengeRequest, GetDailyChallengeResponse,
   GetDailyChallengeResponseBody,
-  EntityType
 } from '@cinelinker/shared'; 
 import { actorsService } from './services/ActorsService';
 import { searchService } from './services/SearchService';

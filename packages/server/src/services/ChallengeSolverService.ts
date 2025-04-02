@@ -1,4 +1,4 @@
-import { Actor, EntityType, Movie } from '@cinelinker/shared';
+import { EntityType } from '@cinelinker/shared';
 import { actorsService } from './ActorsService';
 import { movieService } from './MovieService';
 
