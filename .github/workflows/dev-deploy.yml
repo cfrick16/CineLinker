@@ -58,10 +58,10 @@ jobs:
       # Deploy server to AWS ECR
       - name: Deploy Server to AWS ECR
         run: |
-          # Configure AWS credentials explicitly
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-          aws configure set region $AWS_REGION
+          # Configure AWS credentials correctly
+          aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
+          aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
+          aws configure set default.region "$AWS_REGION"
           
           echo "Deploying server to AWS ECR"
           chmod +x .github/scripts/deploy-server.sh
