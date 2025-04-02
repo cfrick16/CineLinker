@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { SearchMoviesAndActorsResponseBody, SearchResult } from '@cinelinker/shared';
 import debounce from 'lodash/debounce';
 import { SearchBarActions, SearchBarModel } from './SearchBarModel';
+import { apiFetch } from '../../utils/api';
 
 const MAX_RESULTS = 5;
 const DEBOUNCE_TIME_MS = 300;
@@ -9,6 +10,7 @@ const DEBOUNCE_TIME_MS = 300;
 interface SearchBarControllerProps {
   submitGuess: (result: SearchResult) => void;
 }
+
 export function useSearchBarController({submitGuess}: SearchBarControllerProps): [SearchBarModel, SearchBarActions] {
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -23,16 +25,15 @@ export function useSearchBarController({submitGuess}: SearchBarControllerProps):
     setIsLoading(true);
 
     try {
-      const response: Response = await fetch(`/api/searchMoviesAndActors?searchQuery=${encodeURIComponent(searchQuery)}`);
-      const data: SearchMoviesAndActorsResponseBody = await response.json();
+      const data: SearchMoviesAndActorsResponseBody = await apiFetch(`/api/searchMoviesAndActors?searchQuery=${encodeURIComponent(searchQuery)}`);
 
       if (data.status === 'success' && data.results != null) {
         setSearchResults(data.results.slice(0, MAX_RESULTS));
       } else {
-        console.error('Search failed: ' + response);
+        console.error('Search failed');
       }
     } catch (err) {
-      console.error('Network error');
+      console.error('Network error:', err);
     } finally {
       setIsLoading(false);
     }

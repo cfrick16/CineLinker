@@ -1,68 +1,11 @@
-import { Movie, Actor } from '@cinelinker/shared';   
+import { EntityType } from '@cinelinker/shared';   
 
-// Sample Actors
-export const sampleActors: Actor[] = [
-  {
-    id: "192",
-    name: "Morgan Freeman",
-    movieIds: ["m1", "m4", "m6"],
-    imageUrl: "https://m.media-amazon.com/images/M/MV5BMTc0MDMyMzI2OF5BMl5BanBnXkFtZTcwMzM2OTk1MQ@@._V1_FMjpg_UX1000_.jpg"
-  },
-  {
-    id: "a2",
-    name: "Christian Bale",
-    movieIds: ["m2", "m4"]
-  },
-  {
-    id: "1245",
-    name: "Scarlett Johansson",
-    movieIds: ["m3", "m2", "m6"]
-  },
-  {
-    id: "a4",
-    name: "Brit Morgan ",
-    movieIds: []
-  }
-];
-
-// Sample Movies
-export const sampleMovies: Movie[] = [
-  {
-    id: "m1",
-    title: "The Shawshank Redemption",
-    year: 1994,
-    actorIds: ["a1"] // Morgan Freeman
-  },
-  {
-    id: "m2",
-    title: "The Prestige",
-    year: 2010,
-    actorIds: ["a2", "a3"] // Scarlett Johansson and Christian Bale
-  },
-  {
-    id: "m3",
-    title: "Lost in Translation",
-    year: 2003,
-    actorIds: ["a3"] // Scarlett Johansson
-  },
-  {
-    id: "m4",
-    title: "The Dark Knight",
-    year: 2008,
-    actorIds: ["a1", "a2"], // Morgan Freeman & Christian Bale
-    imageUrl: "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_FMjpg_UX1000_.jpg"
-  }, 
-  {
-    id: "m5",
-    title: "Morgan",
-    year: 2016,
-    actorIds: [],
-    imageUrl: "https://m.media-amazon.com/images/M/MV5BMTI0MWNjYTItZWFiMC00ZjczLTg3MTQtNDg0YjUzN2YyYzM3XkEyXkFqcGc@._V1_.jpg"
-  },
-  {
-    id: "m6",
-    title: "Lucy",
-    year: 2014,
-    actorIds: ["a1", "a3"],
-  }
-];
+export const startNodes: Map<string, {id: string, entityType: EntityType, title: string}[]> = new Map([
+  ['2025-03-27', [{id: '192', entityType: EntityType.Actor, title: 'Morgan Freeman'}, {id: '1245', entityType: EntityType.Actor, title: 'Scarlett Johanson'}]],
+  ['2025-03-28', [{id: '4491', entityType: EntityType.Actor, title: 'Jennifer Aniston'}, {id: '8691', entityType: EntityType.Actor, title: 'Zoe Saldana'}]],
+  ['2025-03-29', [{id: '1253360', entityType: EntityType.Actor, title: 'Pedro Pascal'}, {id: '2888', entityType: EntityType.Actor, title: 'Will Smith'}]],
+  ['2025-03-30', [{id: '70160', entityType: EntityType.Movie, title: 'Hunger Games'}, {id: '16535', entityType: EntityType.Movie, title: 'Titanic'}]],
+  ['2025-03-31', [{id: '234352', entityType: EntityType.Actor, title: 'Margot Robbie'}, {id: '73457', entityType: EntityType.Actor, title: 'Chris Pratt'}]],
+  ['2025-04-01', [{id: '1373737', entityType: EntityType.Actor, title: 'Florence Pugh'}, {id: '31', entityType: EntityType.Actor, title: 'Tom Hanks'}]],
+  ['2025-04-02', [{id: '23659', entityType: EntityType.Actor, title: 'Will Ferell'}, {id: '24428', entityType: EntityType.Movie, title: 'The Avengers'}]],
+]);

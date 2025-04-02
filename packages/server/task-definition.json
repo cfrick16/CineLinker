@@ -1,0 +1,34 @@
+{
+    "family": "cinelinker-server",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": ["FARGATE"],
+    "cpu": "256",
+    "memory": "512",
+    "executionRoleArn": "arn:aws:iam::497065081957:role/ecsTaskExecutionRole",
+    "containerDefinitions": [
+        {
+            "name": "cinelinker-server",
+            "image": "497065081957.dkr.ecr.us-west-2.amazonaws.com/cinelinker-server:latest",
+            "portMappings": [
+                {
+                    "containerPort": 8080,
+                    "protocol": "tcp"
+                }
+            ],
+            "environment": [
+                {
+                    "name": "NODE_ENV",
+                    "value": "production"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/cinelinker-server",
+                    "awslogs-region": "us-west-2",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }
+        }
+    ]
+} 
