@@ -20,7 +20,7 @@ function App() {
           left: '50%', 
           transform: 'translateX(-50%)' 
         }}>
-          CineLinker
+          Degrees
         </h1>
         <button 
           onClick={() => setIsDemoOpen(true)}
@@ -48,4 +48,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;
