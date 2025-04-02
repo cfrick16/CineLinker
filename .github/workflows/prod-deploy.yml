@@ -1,0 +1,98 @@
+name: Production Deployment
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  deploy-prod:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      
+      - name: Lint
+        run: pnpm lint
+      
+      - name: Build
+        run: pnpm build
+        env:
+          NODE_ENV: production
+      
+      # Optional: Run tests before production deployment
+      - name: Test
+        run: pnpm test
+        continue-on-error: false
+      
+      # Deploy server to production environment
+      - name: Deploy Server
+        run: |
+          echo "Deploying server to production environment"
+          # Add your production deployment commands here
+          # Examples:
+          # - SSH into production server and update code
+          # - Deploy to a cloud service like AWS, GCP, Azure, etc.
+          # - Use a service-specific action
+        env:
+          # Add any environment variables needed for deployment
+          SERVER_DEPLOY_KEY: ${{ secrets.PROD_SERVER_DEPLOY_KEY }}
+          SERVER_DEPLOY_URL: ${{ secrets.PROD_SERVER_DEPLOY_URL }}
+      
+      # Deploy web app to production environment
+      - name: Deploy Web App
+        run: |
+          echo "Deploying web app to production environment"
+          # Add your production deployment commands here
+          # Examples:
+          # - Deploy to production CDN
+          # - Upload to S3 bucket
+          # - Use a service-specific action
+        env:
+          # Add any environment variables needed for deployment
+          WEB_DEPLOY_TOKEN: ${{ secrets.PROD_WEB_DEPLOY_TOKEN }}
+          WEB_DEPLOY_URL: ${{ secrets.PROD_WEB_DEPLOY_URL }}
+      
+      # Create a GitHub release when deploying from a tag
+      - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Notify Deployment Status
+        if: always()
+        run: |
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "Production deployment successful!"
+          else
+            echo "Production deployment failed!"
+          fi
+          # Add notification commands (Slack, Discord, email, etc.)

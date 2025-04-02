@@ -1,0 +1,57 @@
+name: Pull Request Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+      - develop
+
+jobs:
+  validate:
+    name: Validate PR
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+      
+      - name: Install dependencies
+        run: pnpm install
+      
+      - name: Lint
+        run: pnpm lint
+      
+      - name: Build
+        run: pnpm build
+        env:
+          NODE_ENV: development
+      
+      - name: Test
+        run: pnpm test
+        continue-on-error: true
+      
+      # Optional: Add additional checks like security scanning, bundle size analysis, etc.
+      - name: Check bundle size
+        run: |
+          echo "Checking bundle size..."
+          # Add commands to analyze bundle size
+          # Example: npx bundlesize
+      
+      - name: Security scan
+        run: |
+          echo "Running security scan..."
+          # Add commands for security scanning
+          # Example: npx audit-ci --moderate
