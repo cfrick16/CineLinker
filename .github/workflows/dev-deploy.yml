@@ -76,7 +76,14 @@ jobs:
       
       # Deploy web app to AWS Amplify
       - name: Deploy Web App to AWS Amplify
-        run: .github/scripts/deploy-web.sh
+        run: |
+          aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
+          aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
+          aws configure set default.region "$AWS_REGION"
+          
+          echo "Deploying server to AWS ECR"
+          chmod +x .github/scripts/deploy-web.sh
+          .github/scripts/deploy-web.sh
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
