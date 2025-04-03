@@ -16,7 +16,19 @@ import { challengeSolverService } from './services/ChallengeSolverService';
 const app = express();
 const port = process.env.PORT || 4000;
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://www.cinelinker.com',
+    'https://cinelinker.com',
+    'http://localhost:3000',
+    'https://www.dev.cinelinker.com',
+    'https://dev.cinelinker.com',
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+
 app.use(express.json());
 
 app.get('/api/health', (req, res) => {

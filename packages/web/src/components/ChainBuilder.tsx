@@ -126,14 +126,14 @@ export function ChainBuilder() {
         setCenterNode={setCenterNode} 
       />
       
-      {currentChallenge && (
+      {/* {currentChallenge && (
         <ChallengeControls 
           onChallengeGenerated={handleChallengeGenerated}
           startActorId={currentChallenge.startType === EntityType.Actor ? currentChallenge.start.id : undefined}
           endActorId={currentChallenge.endType === EntityType.Actor ? currentChallenge.end.id : undefined}
           currentPath={getCurrentPath()}
         />
-      )}
+      )} */}
     </div>
   );
 }
