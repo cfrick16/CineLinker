@@ -74,6 +74,13 @@ jobs:
           ECR_REPOSITORY: ${{ secrets.DEV_ECR_REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
       
+
+      # Add this step to install AWS Amplify CLI
+      - name: Install AWS Amplify CLI
+        run: |
+          npm install -g @aws-amplify/cli
+          amplify --version  # verify installation
+
       # Deploy web app to AWS Amplify
       - name: Deploy Web App to AWS Amplify
         run: |
