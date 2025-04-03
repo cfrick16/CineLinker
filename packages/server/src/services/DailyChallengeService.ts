@@ -33,7 +33,7 @@ export class DailyChallengeService {
     const dateString = getCurrentDate();
     const nodes = startNodes.get(dateString);
 
-    if (!nodes) {
+    if (!nodes || nodes.length !== 2) {
       throw new Error(`No challenge found for date: ${dateString}`);
     }
 
