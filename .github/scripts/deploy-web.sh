@@ -52,7 +52,11 @@ cd ../../
 
 # Start a deployment job on Amplify
 log "Starting deployment job on Amplify for app ID: $AMPLIFY_APP_ID, branch: $AMPLIFY_BRANCH"
-JOB_ID=$(aws amplify create-deployment --app-id $AMPLIFY_APP_ID --branch-name $AMPLIFY_BRANCH --output json | jq -r '.jobId')
+JOB_ID=$(aws amplify create-deployment \
+  --app-id $AMPLIFY_APP_ID \
+  --branch-name $AMPLIFY_BRANCH \
+  --output json \
+  --file-map "/build.zip=/build.zip" | jq -r '.jobId')
 
 if [ -z "$JOB_ID" ]; then
   log "Error: Failed to create deployment job"
@@ -61,17 +65,31 @@ fi
 
 log "Created deployment job with ID: $JOB_ID"
 
-# Upload the ZIP file to the deployment job
-log "Uploading ZIP file to deployment job"
-aws amplify upload-deployment --app-id $AMPLIFY_APP_ID --branch-name $AMPLIFY_BRANCH --job-id $JOB_ID --zip-file fileb://$ZIP_FILE
-
 # Start the deployment
 log "Starting the deployment"
 aws amplify start-deployment --app-id $AMPLIFY_APP_ID --branch-name $AMPLIFY_BRANCH --job-id $JOB_ID
 
 # Wait for the deployment to complete
+# After creating deployment, poll for status
 log "Waiting for deployment to complete..."
-aws amplify wait job-complete --app-id $AMPLIFY_APP_ID --branch-name $AMPLIFY_BRANCH --job-id $JOB_ID
+while true; do
+  STATUS=$(aws amplify get-job \
+    --app-id $AMPLIFY_APP_ID \
+    --branch-name $AMPLIFY_BRANCH \
+    --job-id $JOB_ID \
+    --output json | jq -r '.job.summary.status')
+    
+  if [ "$STATUS" = "SUCCEED" ]; then
+    log "Deployment completed successfully"
+    break
+  elif [ "$STATUS" = "FAILED" ]; then
+    log "Deployment failed"
+    exit 1
+  fi
+  
+  log "Deployment status: $STATUS"
+  sleep 5
+done
 
 # Get the deployment status
 DEPLOYMENT_STATUS=$(aws amplify get-job --app-id $AMPLIFY_APP_ID --branch-name $AMPLIFY_BRANCH --job-id $JOB_ID --output json | jq -r '.job.summary.status')

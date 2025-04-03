@@ -22,7 +22,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 10
           run_install: false
       
       - name: Setup Node.js
@@ -42,57 +42,71 @@ jobs:
         env:
           NODE_ENV: production
       
-      # Optional: Run tests before production deployment
-      - name: Test
-        run: pnpm test
-        continue-on-error: false
-      
-      # Deploy server to production environment
-      - name: Deploy Server
+      # Install AWS CLI
+      - name: Install AWS CLI
         run: |
-          echo "Deploying server to production environment"
-          # Add your production deployment commands here
-          # Examples:
-          # - SSH into production server and update code
-          # - Deploy to a cloud service like AWS, GCP, Azure, etc.
-          # - Use a service-specific action
-        env:
-          # Add any environment variables needed for deployment
-          SERVER_DEPLOY_KEY: ${{ secrets.PROD_SERVER_DEPLOY_KEY }}
-          SERVER_DEPLOY_URL: ${{ secrets.PROD_SERVER_DEPLOY_URL }}
+          if ! command -v aws &> /dev/null; then
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+          else
+            echo "AWS CLI already installed"
+            aws --version
+          fi
       
-      # Deploy web app to production environment
-      - name: Deploy Web App
+            
+      # Install jq for JSON processing
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      # Deploy server to AWS ECR
+      - name: Deploy Server to AWS ECR
         run: |
-          echo "Deploying web app to production environment"
-          # Add your production deployment commands here
-          # Examples:
-          # - Deploy to production CDN
-          # - Upload to S3 bucket
-          # - Use a service-specific action
+          # Configure AWS credentials correctly
+          aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
+          aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
+          aws configure set default.region "$AWS_REGION"
+          
+          echo "Deploying server to AWS ECR"
+          chmod +x .github/scripts/deploy-server.sh
+          .github/scripts/deploy-server.sh
         env:
-          # Add any environment variables needed for deployment
-          WEB_DEPLOY_TOKEN: ${{ secrets.PROD_WEB_DEPLOY_TOKEN }}
-          WEB_DEPLOY_URL: ${{ secrets.PROD_WEB_DEPLOY_URL }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          ECR_REPOSITORY: ${{ secrets.DEV_ECR_REPOSITORY }}
+          IMAGE_TAG: ${{ github.sha }}
       
-      # Create a GitHub release when deploying from a tag
-      - name: Create Release
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v1
-        with:
-          name: Release ${{ github.ref_name }}
-          draft: false
-          prerelease: false
-          generate_release_notes: true
+      # Add this step to install AWS Amplify CLI
+      - name: Install AWS Amplify CLI
+        run: |
+          npm install -g @aws-amplify/cli
+          amplify --version  # verify installation
+
+      # Deploy web app to AWS Amplify
+      - name: Deploy Web App to AWS Amplify
+        run: |
+          aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
+          aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
+          aws configure set default.region "$AWS_REGION"
+          
+          echo "Deploying server to AWS ECR"
+          chmod +x .github/scripts/deploy-web.sh
+          .github/scripts/deploy-web.sh
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AMPLIFY_APP_ID: ${{ secrets.AMPLIFY_APP_ID }}
+          AMPLIFY_BRANCH: ${{ secrets.AMPLIFY_BRANCH }}
+          ENVIRONMENT: "production"
       
       - name: Notify Deployment Status
         if: always()
         run: |
           if [ "${{ job.status }}" == "success" ]; then
-            echo "Production deployment successful!"
+            echo "Development deployment successful!"
           else
-            echo "Production deployment failed!"
+            echo "Development deployment failed!"
           fi
           # Add notification commands (Slack, Discord, email, etc.)
