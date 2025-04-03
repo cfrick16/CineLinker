@@ -6,7 +6,7 @@ applications:
           commands:
             - npm install -g pnpm
             - pnpm install
-            - echo "VITE_API_URL=http://cinelinker-alb-1775777729.us-west-2.elb.amazonaws.com" > .env.production
+            - echo "VITE_API_URL=https://api.cinelinker.com" > .env.production
         build:
           commands:
             - pnpm --filter @cinelinker/web run build
