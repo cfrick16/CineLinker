@@ -4,10 +4,17 @@ import { actorsService } from './ActorsService';
 import { movieService } from './MovieService';
 
 const getCurrentDate = (): string => {
-  const date = new Date();
-  const year = date.getFullYear();
-  const day = String(date.getDate()).padStart(2, '0'); // Ensure two-digit day
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Ensure two-digit month
+  // Create date in CST
+  const date = new Date().toLocaleString("en-US", {
+    timeZone: "America/Chicago"
+  });
+  
+  // Convert string back to Date object
+  const cstDate = new Date(date);
+  
+  const year = cstDate.getFullYear();
+  const day = String(cstDate.getDate()).padStart(2, '0');
+  const month = String(cstDate.getMonth() + 1).padStart(2, '0');
 
   return `${year}-${month}-${day}`;
 };
