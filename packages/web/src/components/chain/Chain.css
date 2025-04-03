@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 1rem;
   padding: 2rem;
   overflow-x: auto;
   max-width: 100%;
@@ -51,8 +50,9 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 1rem;
   flex: 1;
+  position: relative;
+  height: 100%;
 }
 
 /* Mobile styles */
@@ -67,9 +67,62 @@
 }
 
 .chain-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+  position: relative;
+  transition: all 0.3s ease;
+  z-index: 1;
+  margin-right: 20px; /* Default spacing between cards */
+  margin-left: 20px; /* Default spacing between cards */
+}
+
+/* Default spacing for all screen sizes */
+.chain-left .chain-item,
+.chain-right .chain-item {
+  margin-top: 0;
+}
+
+/* Ensure proper stacking order - each subsequent item should be on top */
+.chain-left .chain-item:nth-child(1) { z-index: 1; }
+.chain-left .chain-item:nth-child(2) { z-index: 2; }
+.chain-left .chain-item:nth-child(3) { z-index: 3; }
+.chain-left .chain-item:nth-child(4) { z-index: 4; }
+.chain-left .chain-item:nth-child(5) { z-index: 5; }
+.chain-left .chain-item:nth-child(6) { z-index: 6; }
+
+.chain-right .chain-item:nth-child(1) { z-index: 6; }
+.chain-right .chain-item:nth-child(2) { z-index: 5; }
+.chain-right .chain-item:nth-child(3) { z-index: 4; }
+.chain-right .chain-item:nth-child(4) { z-index: 3; }
+.chain-right .chain-item:nth-child(5) { z-index: 2; }
+.chain-right .chain-item:nth-child(6) { z-index: 1; }
+
+.chain-item:last-child {
+  margin-right: 0;
+}
+
+.chain-item:first-child {
+  margin-left: 0;
+}
+
+/* Success chain positioning */
+.chain-container.success .chain-item {
+  position: relative;
+  margin-right: 20px; /* Default spacing between cards */
+}
+
+/* Ensure proper stacking order in success state - each subsequent item should be on top */
+.chain-container.success .chain-item:nth-child(1) { z-index: 1; }
+.chain-container.success .chain-item:nth-child(2) { z-index: 2; }
+.chain-container.success .chain-item:nth-child(3) { z-index: 3; }
+.chain-container.success .chain-item:nth-child(4) { z-index: 4; }
+.chain-container.success .chain-item:nth-child(5) { z-index: 5; }
+.chain-container.success .chain-item:nth-child(6) { z-index: 6; }
+.chain-container.success .chain-item:nth-child(7) { z-index: 7; }
+.chain-container.success .chain-item:nth-child(8) { z-index: 8; }
+.chain-container.success .chain-item:nth-child(9) { z-index: 9; }
+.chain-container.success .chain-item:nth-child(10) { z-index: 10; }
+
+.chain-container.success .chain-item:last-child {
+  margin-right: 0;
 }
 
 /* Mobile styles */
@@ -152,8 +205,8 @@
 }
 
 .node-image {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
   border-radius: var(--border-radius-md);
   margin-bottom: 1rem;
@@ -201,19 +254,22 @@
   }
 }
 
+/* Make all images the same size */
 .node-image.movie {
-  aspect-ratio: 2/3;
-  width: 80px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
 }
 
 .node-image.actor {
-  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  border-radius: 0.5rem; /* Use same border radius as movies */
 }
 
 .node-image-placeholder {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -254,14 +310,16 @@
   }
 }
 
+/* Make all placeholders the same size */
 .node-image-placeholder.movie {
-  aspect-ratio: 2/3;
-  width: 80px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
 }
 
 .node-image-placeholder.actor {
-  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  border-radius: 0.5rem; /* Use same border radius as movies */
 }
 
 .node-details {
@@ -309,10 +367,15 @@
 }
 
 .chain-connection {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
+  margin-left: -120px; /* Pull connection line back to connect with previous card */
+  z-index: 0;
+}
+
+/* Adjust connection line for non-stacked layout */
+@media (min-width: 1201px) {
+  .chain-connection {
+    margin-left: 0;
+  }
 }
 
 .connection-line {
@@ -336,6 +399,10 @@
   .connection-line {
     width: 20px;
   }
+}
+
+.chain-container.success .connection-line {
+  background-color: #10b981;
 }
 
 .connection-line::before,

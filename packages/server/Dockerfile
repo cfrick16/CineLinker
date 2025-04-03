@@ -1,49 +1,52 @@
-FROM node:18-slim AS builder
+FROM node:20-alpine AS builder
 
+# Set working directory
 WORKDIR /app
+
+# Copy package files
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY packages/server/package.json ./packages/server/
+COPY packages/shared/package.json ./packages/shared/
 
 # Install pnpm
 RUN npm install -g pnpm
 
-# Copy root package files
-COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
+# Install dependencies
+RUN pnpm install --frozen-lockfile
 
-# Copy shared package
+# Copy source code
+COPY packages/server ./packages/server
 COPY packages/shared ./packages/shared
 
-# Copy server package
-COPY packages/server ./packages/server
-
-# Install dependencies and build
-RUN pnpm install
-RUN cd packages/server && pnpm build
+# Build the application
+RUN pnpm --filter=@cinelinker/server build
 
 # Production stage
-FROM node:18-slim
+FROM node:20-alpine
 
+# Set working directory
 WORKDIR /app
-
-# Install pnpm
-RUN npm install -g pnpm
-
-# Copy package files and workspace config
-COPY --from=builder /app/package.json /app/pnpm-workspace.yaml /app/pnpm-lock.yaml ./
-
-# Copy built files and dependencies
-COPY --from=builder /app/packages/shared ./packages/shared
-COPY --from=builder /app/packages/server/package.json ./packages/server/
-COPY --from=builder /app/packages/server/dist ./packages/server/dist
-
-# Install production dependencies only
-RUN pnpm install --prod
 
 # Set environment variables
 ENV NODE_ENV=production
-ENV PORT=8080
 
-# Expose the application port
-EXPOSE 8080
+# Copy package files
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY packages/server/package.json ./packages/server/
+COPY packages/shared/package.json ./packages/shared/
 
-# Start the application
-WORKDIR /app/packages/server
-CMD ["node", "dist/index.js"] 
+# Install pnpm
+RUN npm install -g pnpm
+
+# Install production dependencies only
+RUN pnpm install --frozen-lockfile --prod
+
+# Copy built application from builder stage
+COPY --from=builder /app/packages/server/dist ./packages/server/dist
+COPY --from=builder /app/packages/shared/dist ./packages/shared/dist
+
+# Expose the port the app runs on
+EXPOSE 3000
+
+# Command to run the application
+CMD ["node", "packages/server/dist/index.js"]

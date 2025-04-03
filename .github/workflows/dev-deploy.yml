@@ -1,0 +1,76 @@
+name: Development Deployment
+
+on:
+  push:
+    branches:
+      - develop
+      - 'feature/**'
+  workflow_dispatch:
+
+jobs:
+  deploy-dev:
+    environment: development
+    name: Deploy to Development
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
+          run_install: false
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      
+      - name: Lint
+        run: pnpm lint
+      
+      - name: Build
+        run: pnpm build
+        env:
+          NODE_ENV: development    
+
+      # Install AWS CLI
+      - name: Install AWS CLI
+        run: |
+          if ! command -v aws &> /dev/null; then
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+          else
+            echo "AWS CLI already installed"
+            aws --version
+          fi
+      
+      # Install jq for JSON processing
+      - name: Install jq
+        run: sudo apt-get install -y jq
+      
+      # Deploy server to AWS ECR
+      - name: Deploy Server to AWS ECR
+        run: |
+          # Configure AWS credentials correctly
+          aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
+          aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
+          aws configure set default.region "$AWS_REGION"
+          echo "Skipping server deployment in development until we have a dev ECR setup"
+          # echo "Deploying server to AWS ECR"
+          # chmod +x .github/scripts/deploy-server.sh
+          # .github/scripts/deploy-server.sh
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          ECR_REPOSITORY: ${{ secrets.DEV_ECR_REPOSITORY }}
+          IMAGE_TAG: ${{ github.sha }}
+      

@@ -43,6 +43,7 @@ export function ChainBuilder() {
     }
   };
 
+
   useEffect(() => {
     apiFetch(`/api/getDailyChallenge?date=${new Date().toISOString()}`)
       .then((data: GetDailyChallengeResponseBody) => {
@@ -67,7 +68,14 @@ export function ChainBuilder() {
           />
         </div>
       </div>
-      <Chain leftNodes={leftNodes} rightNodes={rightNodes} centerNode={centerNode} setLeftNodes={setLeftNodes} setRightNodes={setRightNodes} setCenterNode={setCenterNode} />
+      <Chain 
+        leftNodes={leftNodes} 
+        rightNodes={rightNodes} 
+        centerNode={centerNode} 
+        setLeftNodes={setLeftNodes} 
+        setRightNodes={setRightNodes} 
+        setCenterNode={setCenterNode} 
+      />
     </div>
   );
-} 
+}
