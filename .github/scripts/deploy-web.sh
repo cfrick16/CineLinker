@@ -52,7 +52,11 @@ cd ../../
 
 # Start a deployment job on Amplify
 log "Starting deployment job on Amplify for app ID: $AMPLIFY_APP_ID, branch: $AMPLIFY_BRANCH"
-JOB_ID=$(aws amplify create-deployment --app-id $AMPLIFY_APP_ID --branch-name $AMPLIFY_BRANCH --output json --zip-file fileb://$ZIP_FILE | jq -r '.jobId')
+JOB_ID=$(aws amplify create-deployment \
+  --app-id $AMPLIFY_APP_ID \
+  --branch-name $AMPLIFY_BRANCH \
+  --output json \
+  --file-map "{\"baseDirectory\":\".\",\"files\":{\"$ZIP_FILE\":\"$ZIP_FILE\"}}" | jq -r '.jobId')
 
 if [ -z "$JOB_ID" ]; then
   log "Error: Failed to create deployment job"
