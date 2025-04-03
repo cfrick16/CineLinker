@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+log() {
+  echo "$(date '+%Y-%m-%d %H:%M:%S') - $1"
+}
+
 # ... (keep all the initial setup and ZIP creation the same until the deployment part)
 
 # Start the deployment and get the job ID
