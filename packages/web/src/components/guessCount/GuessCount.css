@@ -1,46 +1,113 @@
 .guess-counter-container {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;  /* Reduced from 8px */
-    margin: 12px auto; /* Reduced from 16px */
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 16px auto;
+  align-items: center;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .guess-counter-container {
+    margin: 12px auto;
+    gap: 5px;
   }
-  
+}
+
+.guess-counter {
+  padding: 8px 16px;
+  border-radius: var(--border-radius-full);
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 170px;
+  justify-content: space-between;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
   .guess-counter {
-    padding: 6px 12px; /* Reduced from 8px 16px */
-    border-radius: 16px; /* Reduced from 20px */
-    font-size: 13px; /* Reduced from 14px */
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px; /* Reduced from 8px */
-    min-width: 160px; /* Reduced from 180px */
-    justify-content: space-between; /* Changed from center */
+    padding: 6px 12px;
+    font-size: 13px;
+    min-width: 150px;
+    gap: 6px;
   }
-  
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+  .guess-counter {
+    padding: 5px 10px;
+    font-size: 12px;
+    min-width: 130px;
+    gap: 5px;
+  }
+}
+
+.guess-counter::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+  z-index: 1;
+}
+
 .guess-counter.total {
-    background: linear-gradient(to right, #3b82f6, #4f46e5);
-    color: white;
-    box-shadow: 0 1px 2px rgba(59, 130, 246, 0.4);
-  }
-  
-  .guess-counter.invalid {
-    background: linear-gradient(to right, #dc2626, #991b1b);
-    color: white;
-    box-shadow: 0 1px 2px rgba(220, 38, 38, 0.4);
-  }
-  
+  background: linear-gradient(to right, var(--color-accent-primary), var(--color-accent-tertiary));
+  color: white;
+}
+
+.guess-counter.invalid {
+  background: linear-gradient(to right, var(--color-error), var(--color-error-hover));
+  color: white;
+}
+
+.guess-counter:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
 .guess-count {
-    background: rgba(255, 255, 255, 0.2); /* Slightly increased opacity for better contrast */
-    padding: 1px 8px; /* Reduced vertical padding */
-    border-radius: 10px; /* Reduced from 12px */
-    font-weight: 600;
-    min-width: 20px; /* Reduced from 24px */
-    text-align: center;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 10px;
+  border-radius: var(--border-radius-md);
+  font-weight: 600;
+  min-width: 24px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  box-shadow: var(--shadow-inner);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .guess-count {
+    padding: 2px 8px;
+    min-width: 20px;
   }
-  
-  /* Optional: make the labels a bit more subtle */
-  .guess-counter span:not(.guess-count) {
-    opacity: 0.9;
-    font-weight: 400;
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+  .guess-count {
+    padding: 1px 6px;
+    min-width: 18px;
   }
+}
+
+/* Make the labels a bit more subtle */
+.guess-counter span:not(.guess-count) {
+  opacity: 0.95;
+  font-weight: 500;
+  position: relative;
+  z-index: 2;
+}

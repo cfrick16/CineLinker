@@ -1,11 +1,22 @@
-const API_URL = import.meta.env.VITE_API_URL;
+// In development, we can use relative URLs which will be handled by the Vite proxy
+// In production, we'll use the full API URL from the environment variable
+const API_BASE = import.meta.env.DEV ? '' : import.meta.env.VITE_API_URL;
 
 export async function apiFetch(endpoint: string, options: RequestInit = {}) {
-  const url = `${API_URL}${endpoint}`;
+  const url = `${API_BASE}${endpoint}`;
   console.log('Fetching from:', url); // Debug log
-  const response = await fetch(url, options);
-  if (!response.ok) {
-    throw new Error(`API call failed: ${response.statusText}`);
+  
+  try {
+    const response = await fetch(url, options);
+    
+    if (!response.ok) {
+      console.error('API call failed:', response.status, response.statusText);
+      throw new Error(`API call failed: ${response.statusText}`);
+    }
+    
+    return response.json();
+  } catch (error) {
+    console.error('API fetch error:', error);
+    throw error;
   }
-  return response.json();
-} 
+}

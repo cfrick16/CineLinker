@@ -14,6 +14,7 @@ function ActorNode({ actor }: { actor: Actor }) {
           src={actor.imageUrl ?? '/images/default-actor.svg'} 
           className={`node-image actor`}
           onError={(e) => { e.currentTarget.src = '/images/default-actor.svg' }}
+          alt={actor.name}
       />
       <div className="node-details">
         <h3>{actor.name}</h3>
@@ -29,6 +30,7 @@ function MovieNode({ movie }: { movie: Movie }) {
           src={movie.imageUrl ?? '/images/default-movie.svg'} 
           className={`node-image movie`}
           onError={(e) => { e.currentTarget.src = '/images/default-movie.svg' }}
+          alt={movie.title}
       />
       <div className="node-details">
         <h3>{movie.title}</h3>
@@ -56,6 +58,7 @@ export function ChainView({ model, actions }: ChainViewProps) {
             className="remove-node" 
             onClick={() => actions.removeNode(node)}
             title="Remove this and following nodes"
+            aria-label="Remove this and following nodes"
           >
             ×
           </button>
