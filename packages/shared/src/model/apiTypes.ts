@@ -31,6 +31,7 @@ export interface GetActorByIdResponse extends Response {
 export interface SearchMoviesAndActorsRequest extends Request {
   query: {
     searchQuery: string;
+    page: string;
   };
 }
 export type SearchMoviesAndActorsResponseBody = { status: string; results?: SearchResult[] }

@@ -41,7 +41,7 @@ app.get('/api/health', (req, res) => {
 });
 
 app.get('/api/searchMoviesAndActors', (req: SearchMoviesAndActorsRequest, res: SearchMoviesAndActorsResponse) => {
-  searchService.searchMoviesAndActors(req.query.searchQuery, req.query.page ?? 1).then((results) => {
+  searchService.searchMoviesAndActors(req.query.searchQuery, req.query.page ? parseInt(req.query.page) : 1).then((results) => {
       res.json({ status: 'success', results: results });
   });
 });
