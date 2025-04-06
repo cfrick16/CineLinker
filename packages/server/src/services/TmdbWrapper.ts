@@ -5,8 +5,8 @@ export class TmdbWrapper {
     private readonly apiKey = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlM2VjZDU5Y2NmNTg0NTgzMjU5MGVlMGE0YjljYjNlMSIsIm5iZiI6MTc0Mjk2NjU3MC45Njk5OTk4LCJzdWIiOiI2N2UzOGYyYWQ0MDUyZjQ3OTNkYzk3N2YiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.MMqHfM65kIZkL7iF9olKL6C0fXvbPiYdtZLLUz51oUU';
     
     // Search movies and people by title
-    async fetchSearchMulti(query: string): Promise<{results: TmdbSearchResult[]}> {
-        const url = `https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=false&language=en-US&page=1`;
+    async fetchSearchMulti(query: string, page: number): Promise<{results: TmdbSearchResult[]}> {
+        const url = `https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=false&language=en-US&page=${page}`;
         const options = {
             method: 'GET',
             headers: {

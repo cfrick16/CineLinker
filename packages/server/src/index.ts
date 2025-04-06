@@ -41,7 +41,7 @@ app.get('/api/health', (req, res) => {
 });
 
 app.get('/api/searchMoviesAndActors', (req: SearchMoviesAndActorsRequest, res: SearchMoviesAndActorsResponse) => {
-  searchService.searchMoviesAndActors(req.query.searchQuery).then((results) => {
+  searchService.searchMoviesAndActors(req.query.searchQuery, req.query.page ?? 1).then((results) => {
       res.json({ status: 'success', results: results });
   });
 });
@@ -139,5 +139,5 @@ app.post('/api/getHint', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+  // console.log(`Server running on port ${port}`);
 });

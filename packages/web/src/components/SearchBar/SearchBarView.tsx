@@ -67,6 +67,28 @@ export function SearchBarView({ model, actions }: SearchBarProps) {
       {model.searchResults.length > 0 && (
         <div className="search-results">
           {model.searchResults.map(renderResult)}
+          <div className="pagination-buttons">
+            <button 
+              className="pagination-button" 
+              onClick={(e) => {
+                e.stopPropagation();
+                actions.handlePreviousPage?.();
+              }}
+              disabled={model.isLoading || model.currentPage === 1}
+            >
+              Previous Page
+            </button>
+            <button 
+              className="pagination-button" 
+              onClick={(e) => {
+                e.stopPropagation();
+                actions.handleNextPage?.();
+              }}
+              disabled={model.isLoading}
+            >
+              Next Page
+            </button>
+          </div>
         </div>
       )}
     </div>

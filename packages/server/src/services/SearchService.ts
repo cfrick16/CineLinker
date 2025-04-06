@@ -4,8 +4,8 @@ import { tmdbWrapper } from './TmdbWrapper';
 export class SearchService {
 
     // Search movies by title
-    async searchMoviesAndActors(query: string): Promise<SearchResult[]> {
-        const searchResults = await this.queryPeopleAndMovies(query);
+    async searchMoviesAndActors(query: string, page: number): Promise<SearchResult[]> {
+        const searchResults = await this.queryPeopleAndMovies(query, page);
         const searchResultsWithImages = await Promise.all(searchResults.map(async (result) => {
             const imageUrl = await tmdbWrapper.getFirstImage(parseInt(result.id), result.entityType);
             return { ...result, imageUrl };
@@ -14,11 +14,12 @@ export class SearchService {
     }
 
 
-    async queryPeopleAndMovies(query: string): Promise<SearchResult[]> {
+    async queryPeopleAndMovies(query: string, page: number): Promise<SearchResult[]> {
 
-        const data = await tmdbWrapper.fetchSearchMulti(query);
+        const data = await tmdbWrapper.fetchSearchMulti(query, page);
 
         const searchResults: SearchResult[] = data.results
+            .sort((a, b) => b.popularity - a.popularity)
             .map(this.convertToSearchResult)
             .filter((result: SearchResult | undefined) => result != null);
 

@@ -15,8 +15,9 @@ export function useSearchBarController({submitGuess}: SearchBarControllerProps):
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const performSearch = async (searchQuery: string) => {
+  const performSearch = async (searchQuery: string, page: number) => {
     if (!searchQuery.trim()) {
       setSearchResults([]);
       return;
@@ -25,7 +26,7 @@ export function useSearchBarController({submitGuess}: SearchBarControllerProps):
     setIsLoading(true);
 
     try {
-      const data: SearchMoviesAndActorsResponseBody = await apiFetch(`/api/searchMoviesAndActors?searchQuery=${encodeURIComponent(searchQuery)}`);
+      const data: SearchMoviesAndActorsResponseBody = await apiFetch(`/api/searchMoviesAndActors?searchQuery=${encodeURIComponent(searchQuery)}&page=${page}`);
 
       if (data.status === 'success' && data.results != null) {
         setSearchResults(data.results.slice(0, MAX_RESULTS));
@@ -52,8 +53,9 @@ export function useSearchBarController({submitGuess}: SearchBarControllerProps):
   }, [debouncedSearch]);
 
   const handleQueryChange = useCallback((newQuery: string) => {
+    setCurrentPage(1);
     setQuery(newQuery);
-    debouncedSearch(newQuery);
+    debouncedSearch(newQuery, 1);
   }, [debouncedSearch]);
 
   const onResultClick = useCallback((result: SearchResult) => {
@@ -62,8 +64,18 @@ export function useSearchBarController({submitGuess}: SearchBarControllerProps):
     setSearchResults([]);
   }, [submitGuess]);
 
+  const handlePreviousPage = useCallback(() => {
+    performSearch(query, currentPage - 1);
+    setCurrentPage(currentPage - 1);
+  }, [currentPage, query]);
+
+  const handleNextPage = useCallback(() => {
+    performSearch(query, currentPage + 1);
+    setCurrentPage(currentPage + 1);
+  }, [currentPage, query]);
+
   return [
-    { query, isLoading, searchResults },
-    { handleQueryChange, onResultClick }
+    { query, isLoading, searchResults, currentPage },
+    { handleQueryChange, onResultClick, handlePreviousPage, handleNextPage }
   ];
 } 

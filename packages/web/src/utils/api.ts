@@ -4,7 +4,7 @@ const API_BASE = import.meta.env.DEV ? '' : import.meta.env.VITE_API_URL;
 
 export async function apiFetch(endpoint: string, options: RequestInit = {}) {
   const url = `${API_BASE}${endpoint}`;
-  console.log('Fetching from:', url); // Debug log
+  console.debug('Fetching from:', url); // Debug log
   
   try {
     const response = await fetch(url, options);
