@@ -1,5 +1,7 @@
 service: cinelinker-api
 
+frameworkVersion: '~4.14.3'
+
 provider:
   name: aws
   runtime: nodejs20.x
