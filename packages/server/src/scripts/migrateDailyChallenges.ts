@@ -1,6 +1,11 @@
 import { DynamoDB } from 'aws-sdk';
 import { startNodes } from '../mockdata/sampleData';
 
+interface AWSError {
+  code?: string;
+  message?: string;
+}
+
 const dynamoDB = new DynamoDB.DocumentClient({
   region: 'us-west-2'
 });
@@ -31,8 +36,9 @@ async function migrateDailyChallenges() {
         }
       }).promise();
       console.log('Created table:', TABLE_NAME);
-    } catch (error: any) {
-      if (error.code === 'ResourceInUseException') {
+    } catch (error: unknown) {
+      const awsError = error as AWSError;
+      if (awsError.code === 'ResourceInUseException') {
         console.log('Table already exists:', TABLE_NAME);
       } else {
         throw error;

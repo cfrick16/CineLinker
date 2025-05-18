@@ -7,19 +7,7 @@ const dynamoDB = new DynamoDB.DocumentClient({
   region: 'us-west-2'
 });
 
-const dynamoDBService = new DynamoDB({
-  region: 'us-west-2'
-});
-
 const TABLE_NAME = 'CinelinkerStartingNodes';
-
-interface DailyChallengeNode {
-  dateAndNodeNumber: string; // Format: "YYYY-MM-DD-1" or "YYYY-MM-DD-2"
-  date: string;
-  tmdbId: string;
-  entityType: EntityType;
-  name: string;
-}
 
 const getCurrentDate = (): string => {
   // Create date in CST
