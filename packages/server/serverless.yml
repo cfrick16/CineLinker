@@ -1,6 +1,7 @@
 service: cinelinker-api
 
-frameworkVersion: '~4.14.3'
+plugins:
+  - serverless-esbuild
 
 provider:
   name: aws
@@ -22,7 +23,7 @@ functions:
     timeout: 28
     memorySize: 1024
 
-build:
+custom:
   esbuild:
     bundle: true
     minify: true
