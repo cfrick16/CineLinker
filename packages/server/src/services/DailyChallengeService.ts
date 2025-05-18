@@ -59,6 +59,9 @@ export class DailyChallengeService {
         dynamoDB.get(endNodeParams).promise()
       ]);
       
+      // Debug log for DynamoDB results
+      console.log('DynamoDB get results:', { startResult, endResult });
+      
       if (!startResult.Item || !endResult.Item) {
         throw new Error(`No challenge found for date: ${dateString}`);
       }
