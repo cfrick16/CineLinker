@@ -18,6 +18,6 @@ pnpm build
 
 # Deploy to AWS Lambda using Serverless Framework
 echo "Deploying to AWS Lambda..."
-npx serverless deploy
+npx serverless deploy --stage ${STAGE:-"dev"}
 
 echo "Deployment complete!" 

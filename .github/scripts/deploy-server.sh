@@ -3,15 +3,21 @@
 # Exit on error
 set -e
 
-# Configuration
-AWS_REGION=${AWS_REGION:-"us-west-2"}
-STAGE=${STAGE:-"dev"}
+# Load environment variables
+if [ -f .env ]; then
+  export $(cat .env | grep -v '^#' | xargs)
+fi
 
-echo "🚀 Starting deployment..."
+# Install dependencies
+echo "Installing dependencies..."
+pnpm install
 
-# Deploy to Lambda using Serverless Framework
-echo "📦 Deploying to Lambda..."
-cd packages/server
-pnpm serverless deploy --stage ${STAGE}
+# Build TypeScript code
+echo "Building TypeScript code..."
+pnpm build
 
-echo "✅ Deployment completed successfully!"
+# Deploy to AWS Lambda using Serverless Framework
+echo "Deploying to AWS Lambda..."
+npx serverless deploy --stage ${STAGE:-"dev"}
+
+echo "Deployment complete!" 

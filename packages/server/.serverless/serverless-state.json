@@ -177,7 +177,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cinelinker-api/dev/1747593603152-2025-05-18T18:40:03.152Z/cinelinker-api.zip"
+                "S3Key": "serverless/cinelinker-api/dev/1747594604543-2025-05-18T18:56:44.543Z/cinelinker-api.zip"
               },
               "Handler": "src/index.handler",
               "Runtime": "nodejs20.x",
@@ -201,14 +201,14 @@
               "ApiLogGroup"
             ]
           },
-          "ApiLambdaVersionuNsbhGdHTRhWii9bZ6nP8zM2M6FRV9Ea4EIbO2ih7U": {
+          "ApiLambdaVersionk6naBAVWkghKNDSEgk8fwK4r6En2iURvL3AbGlPVioA": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ApiLambdaFunction"
               },
-              "CodeSha256": "EanqESr55wOoq2kZtCNjrBdNqkbrCPmkp/inIo5JV8Q="
+              "CodeSha256": "tAKtSiPLVz4ZpkO9lmrSG/sHAKJVc513R1JN3qFQwbE="
             }
           },
           "ApiGatewayRestApi": {
@@ -341,7 +341,7 @@
               "ApiLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1747593597816": {
+          "ApiGatewayDeployment1747594599311": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -404,7 +404,7 @@
           "ApiLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ApiLambdaVersionuNsbhGdHTRhWii9bZ6nP8zM2M6FRV9Ea4EIbO2ih7U"
+              "Ref": "ApiLambdaVersionk6naBAVWkghKNDSEgk8fwK4r6En2iURvL3AbGlPVioA"
             },
             "Export": {
               "Name": "sls-cinelinker-api-dev-ApiLambdaFunctionQualifiedArn"
@@ -563,7 +563,7 @@
         "memory": 1024,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "ApiLambdaVersionuNsbhGdHTRhWii9bZ6nP8zM2M6FRV9Ea4EIbO2ih7U"
+        "versionLogicalId": "ApiLambdaVersionk6naBAVWkghKNDSEgk8fwK4r6En2iURvL3AbGlPVioA"
       }
     },
     "configValidationMode": "warn",
@@ -596,7 +596,7 @@
     "layers": {}
   },
   "package": {
-    "artifactDirectoryName": "serverless/cinelinker-api/dev/1747593603152-2025-05-18T18:40:03.152Z",
+    "artifactDirectoryName": "serverless/cinelinker-api/dev/1747594604543-2025-05-18T18:56:44.543Z",
     "artifact": "cinelinker-api.zip"
   }
 }
