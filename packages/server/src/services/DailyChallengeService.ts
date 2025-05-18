@@ -37,27 +37,34 @@ export class DailyChallengeService {
     const dateString = date || getCurrentDate();
     
     try {
-      const params = {
+      // Query for both start and end nodes
+      const startNodeParams = {
         TableName: TABLE_NAME,
-        KeyConditionExpression: 'date = :date',
-        ExpressionAttributeValues: {
-          ':date': dateString
+        Key: {
+          dateAndNodeNumber: `${dateString}-1`,
+          date: dateString
         }
       };
 
-      const result = await dynamoDB.query(params).promise();
+      const endNodeParams = {
+        TableName: TABLE_NAME,
+        Key: {
+          dateAndNodeNumber: `${dateString}-2`,
+          date: dateString
+        }
+      };
+
+      const [startResult, endResult] = await Promise.all([
+        dynamoDB.get(startNodeParams).promise(),
+        dynamoDB.get(endNodeParams).promise()
+      ]);
       
-      if (!result.Items || result.Items.length !== 2) {
+      if (!startResult.Item || !endResult.Item) {
         throw new Error(`No challenge found for date: ${dateString}`);
       }
 
-      // Sort items by node number (1 = start, 2 = end)
-      const sortedItems = result.Items.sort((a, b) => 
-        parseInt(a.dateAndNodeNumber.split('-')[3]) - parseInt(b.dateAndNodeNumber.split('-')[3])
-      );
-
-      const startNode = sortedItems[0];
-      const endNode = sortedItems[1];
+      const startNode = startResult.Item;
+      const endNode = endResult.Item;
       
       const startEntity = await this.getActorOrMovieByStartNode({
         tmdbId: startNode.tmdbId,

@@ -45,7 +45,8 @@ export function ChainBuilder() {
 
 
   useEffect(() => {
-    apiFetch(`/api/getDailyChallenge?date=${new Date().toISOString()}`)
+    const today = new Date().toISOString().split('T')[0]; // Get YYYY-MM-DD format
+    apiFetch(`/api/getDailyChallenge?date=${today}`)
       .then((data: GetDailyChallengeResponseBody) => {
         const startNode = convertToChainNode(data.start, data.startType);
         const endNode = convertToChainNode(data.end, data.endType);
