@@ -12,6 +12,11 @@ export class ActorsService {
       imageUrl: await tmdbWrapper.getImageUrl(personDetails.images.profiles),
     }
   }
+
+  async getPopularActors(numResults: number): Promise<{name: string, id: number}[]> {
+    const popularActors = await tmdbWrapper.fetchPopularPersons(numResults);
+    return popularActors;
+  }
 }
 
 // Export a singleton instance

@@ -1,0 +1,321 @@
+date,name,tmdbId,entityType,nodePosition
+2025-05-18,Mrs. Doubtfire,788,movie,left
+2025-05-18,Olivia Wilde,59315,actor,right
+2025-05-19,Matthew McConaughey,10297,actor,left
+2025-05-19,Ana de Armas,224513,actor,right
+2025-05-20,Mama Mia!,11631,movie,left
+2025-05-20,Wedding Crashers,9522,movie,right
+2025-05-21,Taylor Swift,212208,actor,left
+2025-05-21,Ryan Reynolds,10859,actor,right
+2025-05-22,Gerard Butler,17276,actor,left
+2025-05-22,Grease,621,movie,right
+2025-05-23,Emma Thompson,7056,actor,left
+2025-05-23,Timothée Chalamet,1190668,actor,right
+2025-05-24,Edward Norton,819,actor,left
+2025-05-24,Felicity Jones,72855,actor,right
+2025-05-25,Amy Adams,9273,actor,left
+2025-05-25,Channing Tatum,38673,actor,right
+2025-05-26,Kevin Costner,1269,actor,left
+2025-05-26,J.K. Simmons,18999,actor,right
+2025-05-27,Elliot Page,27578,actor,left
+2025-05-27,La La Land,313369,movie,right
+2025-05-28,Jennifer Aniston,4491,actor,left
+2025-05-28,Viggo Mortensen,110,actor,right
+2025-05-29,Spider-Man 3,559,movie,left
+2025-05-29,Moana,277834,movie,right
+2025-05-30,Austin Butler,86654,actor,left
+2025-05-30,Bruce Willis,62,actor,right
+2025-05-31,The Da Vinci Code,591,movie,left
+2025-05-31,Vince Vaughn,4937,actor,right
+2025-06-01,Mark Ruffalo,103,actor,left
+2025-06-01,Thor: The Dark World,76338,movie,right
+2025-06-02,Adrien Brody,3490,actor,left
+2025-06-02,Laurence Fishburne,2975,actor,right
+2025-06-03,Jenna Ortega,974169,actor,left
+2025-06-03,Michael Fassbender,17288,actor,right
+2025-06-04,The Dark Knight Rises,49026,movie,left
+2025-06-04,War of the Worlds,74,movie,right
+2025-06-05,No Time to Die,370172,movie,left
+2025-06-05,Anna Kendrick,84223,actor,right
+2025-06-06,Django Unchained,68718,movie,left
+2025-06-06,Emma Myers,2604515,actor,right
+2025-06-07,Cobie Smulders,71189,actor,left
+2025-06-07,Twisters,718821,movie,right
+2025-06-08,Bryan Cranston,17419,actor,left
+2025-06-08,Kate Beckinsale,3967,actor,right
+2025-06-09,James Franco,17051,actor,left
+2025-06-09,Helen Mirren,15735,actor,right
+2025-06-10,Gone Girl,210577,movie,left
+2025-06-10,Demi Moore,3416,actor,right
+2025-06-11,Eddie Redmayne,37632,actor,left
+2025-06-11,Daniel Craig,8784,actor,right
+2025-06-12,Indiana Jones and the Kingdom of the Crystal Skull,217,movie,left
+2025-06-12,Margaret Qualley,1392137,actor,right
+2025-06-13,Tom Hanks,31,actor,left
+2025-06-13,Sigourney Weaver,10205,actor,right
+2025-06-14,Marisa Tomei,3141,actor,left
+2025-06-14,Skyfall,37724,movie,right
+2025-06-15,Jeremy Renner,17604,actor,left
+2025-06-15,Brave,62177,movie,right
+2025-06-16,Jennifer Connelly,6161,actor,left
+2025-06-16,Denzel Washington,5292,actor,right
+2025-06-17,Tom Cruise,500,actor,left
+2025-06-17,Spider-Man 2,558,movie,right
+2025-06-18,Inception,27205,movie,left
+2025-06-18,Michelle Pfeiffer,1160,actor,right
+2025-06-19,Zach Galifianakis,58225,actor,left
+2025-06-19,Matt Damon,1892,actor,right
+2025-06-20,Mark Wahlberg,13240,actor,left
+2025-06-20,Pirates of the Caribbean: At World's End,285,movie,right
+2025-06-21,Bohemian Rhapsody,424694,movie,left
+2025-06-21,Forrest Gump,13,movie,right
+2025-06-22,Millie Bobby Brown,1356210,actor,left
+2025-06-22,Henry Cavill,73968,actor,right
+2025-06-23,Hayley Atwell,39459,actor,left
+2025-06-23,Star Wars: The Rise of Skywalker,181812,movie,right
+2025-06-24,Hailee Steinfeld,130640,actor,left
+2025-06-24,Amandla Stenberg,561869,actor,right
+2025-06-25,Idris Elba,17605,actor,left
+2025-06-25,Christopher Lloyd,1062,actor,right
+2025-06-26,Mission: Impossible - Rogue Nation,177677,movie,left
+2025-06-26,Night at the Museum,1593,movie,right
+2025-06-27,Blake Lively,59175,actor,left
+2025-06-27,Daniel Radcliffe,10980,actor,right
+2025-06-28,Michelle Rodriguez,17647,actor,left
+2025-06-28,Val Kilmer,5576,actor,right
+2025-06-29,Toy Story 3,10193,movie,left
+2025-06-29,Christina Ricci,6886,actor,right
+2025-06-30,Neve Campbell,9206,actor,left
+2025-06-30,Harry Potter and the Chamber of Secrets,672,movie,right
+2025-07-01,Bill Skarsgård,137905,actor,left
+2025-07-01,Rachel Zegler,2217977,actor,right
+2025-07-02,Jason Statham,976,actor,left
+2025-07-02,Danny Trejo,11160,actor,right
+2025-07-03,Jessica Chastain,83002,actor,left
+2025-07-03,Hugh Jackman,6968,actor,right
+2025-07-04,Dwayne Johnson,18918,actor,left
+2025-07-04,John Krasinski,17697,actor,right
+2025-07-05,Jennifer Coolidge,38334,actor,left
+2025-07-05,The Lord of the Rings: The Two Towers,121,movie,right
+2025-07-06,Will Smith,2888,actor,left
+2025-07-06,Emma Watson,10990,actor,right
+2025-07-07,Hitch,8488,movie,left
+2025-07-07,Ewan McGregor,3061,actor,right
+2025-07-08,Michael B. Jordan,135651,actor,left
+2025-07-08,Anthony Mackie,53650,actor,right
+2025-07-09,Jared Leto,7499,actor,left
+2025-07-09,Penélope Cruz,955,actor,right
+2025-07-10,Jumanji: Welcome to the Jungle,353486,movie,left
+2025-07-10,Ethan Hawke,569,actor,right
+2025-07-11,Colin Firth,5472,actor,left
+2025-07-11,Kate Winslet,204,actor,right
+2025-07-12,Susan Sarandon,4038,actor,left
+2025-07-12,Dunkirk,374720,movie,right
+2025-07-13,Will Poulter,93491,actor,left
+2025-07-13,Elle Fanning,18050,actor,right
+2025-07-14,Robert De Niro,380,actor,left
+2025-07-14,Alexander Skarsgård,28846,actor,right
+2025-07-15,Jack Nicholson,514,actor,left
+2025-07-15,Madagascar,953,movie,right
+2025-07-16,Finding Nemo,12,movie,left
+2025-07-16,Mary Elizabeth Winstead,17628,actor,right
+2025-07-17,Seth Rogen,19274,actor,left
+2025-07-17,Dakota Fanning,501,actor,right
+2025-07-18,Mission: Impossible,954,movie,left
+2025-07-18,Hayden Christensen,17244,actor,right
+2025-07-19,Ian McKellen,1327,actor,left
+2025-07-19,Adam Sandler,19292,actor,right
+2025-07-20,Kathryn Hahn,17696,actor,left
+2025-07-20,Danny DeVito,518,actor,right
+2025-07-21,Spider-Man: Far From Home,429617,movie,left
+2025-07-21,Ryan Gosling,30614,actor,right
+2025-07-22,Angela Bassett,9780,actor,left
+2025-07-22,Michael Caine,3895,actor,right
+2025-07-23,Michelle Yeoh,1620,actor,left
+2025-07-23,Clint Eastwood,190,actor,right
+2025-07-24,Zac Efron,29222,actor,left
+2025-07-24,Uma Thurman,139,actor,right
+2025-07-25,Men in Black,607,movie,left
+2025-07-25,Michael J. Fox,521,actor,right
+2025-07-26,Furious 7,168259,movie,left
+2025-07-26,Emily Blunt,5081,actor,right
+2025-07-27,Megan Fox,19537,actor,left
+2025-07-27,Jaws,578,movie,right
+2025-07-28,Lucy Liu,140,actor,left
+2025-07-28,Liam Neeson,3896,actor,right
+2025-07-29,Chris Evans,16828,actor,left
+2025-07-29,Ariana Grande,226001,actor,right
+2025-07-30,Twilight,8966,movie,left
+2025-07-30,Shia LaBeouf,10959,actor,right
+2025-07-31,Cillian Murphy,2037,actor,left
+2025-07-31,Aquaman,297802,movie,right
+2025-08-01,Guardians of the Galaxy,118340,movie,left
+2025-08-01,Robert Pattinson,11288,actor,right
+2025-08-02,Kate Hudson,11661,actor,left
+2025-08-02,Dakota Johnson,118545,actor,right
+2025-08-03,Jumanji: The Next Level,512200,movie,left
+2025-08-03,Winona Ryder,1920,actor,right
+2025-08-04,Sandra Bullock,18277,actor,left
+2025-08-04,Harry Potter and the Prisoner of Azkaban,673,movie,right
+2025-08-05,Johnny Depp,85,actor,left
+2025-08-05,Richard Gere,1205,actor,right
+2025-08-06,Rogue One: A Star Wars Story,330459,movie,left
+2025-08-06,Pedro Pascal,1253360,actor,right
+2025-08-07,The Wolf of Wall Street,106646,movie,left
+2025-08-07,Salma Hayek Pinault,3136,actor,right
+2025-08-08,Avengers: Endgame,299534,movie,left
+2025-08-08,Natalie Portman,524,actor,right
+2025-08-09,Keira Knightley,116,actor,left
+2025-08-09,Angelina Jolie,11701,actor,right
+2025-08-10,Emmy Rossum,4730,actor,left
+2025-08-10,Al Pacino,1158,actor,right
+2025-08-11,Hancock,8960,movie,left
+2025-08-11,Sylvester Stallone,16483,actor,right
+2025-08-12,Keke Palmer,74688,actor,left
+2025-08-12,Lily James,1016168,actor,right
+2025-08-13,Gal Gadot,90633,actor,left
+2025-08-13,Jessica Alba,56731,actor,right
+2025-08-14,Jamie Lee Curtis,8944,actor,left
+2025-08-14,Robert Downey Jr.,3223,actor,right
+2025-08-15,Mila Kunis,18973,actor,left
+2025-08-15,Emilia Clarke,1223786,actor,right
+2025-08-16,Sean Penn,2228,actor,left
+2025-08-16,Wonder Woman,297762,movie,right
+2025-08-17,Fast & Furious 6,82992,movie,left
+2025-08-17,Kirsten Dunst,205,actor,right
+2025-08-18,Mad Max: Fury Road,76341,movie,left
+2025-08-18,Anya Taylor-Joy,1397778,actor,right
+2025-08-19,Transformers: Age of Extinction,91314,movie,left
+2025-08-19,Mel Gibson,2461,actor,right
+2025-08-20,The Lego Movie,137106,movie,left
+2025-08-20,Andrew Garfield,37625,actor,right
+2025-08-21,Diego Luna,8688,actor,left
+2025-08-21,Star Wars,11,movie,right
+2025-08-22,Colin Farrell,72466,actor,left
+2025-08-22,Morgan Freeman,192,actor,right
+2025-08-23,Sean Bean,48,actor,left
+2025-08-23,Gravity,49047,movie,right
+2025-08-24,Kristen Stewart,37917,actor,left
+2025-08-24,Florence Pugh,1373737,actor,right
+2025-08-25,Robin Williams,2157,actor,left
+2025-08-25,Black Panther,284054,movie,right
+2025-08-26,The Hunger Games: Catching Fire,101299,movie,left
+2025-08-26,Tom Holland,1136406,actor,right
+2025-08-27,Scarlett Johansson,1245,actor,left
+2025-08-27,Star Wars: The Last Jedi,181808,movie,right
+2025-08-28,Sydney Sweeney,115440,actor,left
+2025-08-28,Charlie and the Chocolate Factory,118,movie,right
+2025-08-29,Nicolas Cage,2963,actor,left
+2025-08-29,The Meg,345940,movie,right
+2025-08-30,Reese Witherspoon,368,actor,left
+2025-08-30,A Star Is Born,332562,movie,right
+2025-08-31,Zoe Saldaña,8691,actor,left
+2025-08-31,Leonardo DiCaprio,6193,actor,right
+2025-09-01,Theo James,587020,actor,left
+2025-09-01,Kevin Bacon,4724,actor,right
+2025-09-02,Margot Robbie,234352,actor,left
+2025-09-02,Jurassic World: Fallen Kingdom,351286,movie,right
+2025-09-03,Alexandra Daddario,109513,actor,left
+2025-09-03,Ben Affleck,880,actor,right
+2025-09-04,Ice Age: Dawn of the Dinosaurs,8355,movie,left
+2025-09-04,Emma Roberts,34847,actor,right
+2025-09-05,Lisa Ann Walter,4494,actor,left
+2025-09-05,Jennifer Lopez,16866,actor,right
+2025-09-06,Meryl Streep,5064,actor,left
+2025-09-06,Dolph Lundgren,16644,actor,right
+2025-09-07,Minions,211672,movie,left
+2025-09-07,Jessica Biel,10860,actor,right
+2025-09-08,Kevin Hart,55638,actor,left
+2025-09-08,Rachel McAdams,53714,actor,right
+2025-09-09,Willem Dafoe,5293,actor,left
+2025-09-09,James McAvoy,5530,actor,right
+2025-09-10,Oscar Isaac,25072,actor,left
+2025-09-10,Chloë Grace Moretz,56734,actor,right
+2025-09-11,Nicole Kidman,2227,actor,left
+2025-09-11,Avengers: Infinity War,299536,movie,right
+2025-09-12,The Dark Knight,155,movie,left
+2025-09-12,Harry Potter and the Half-Blood Prince,767,movie,right
+2025-09-13,Tom Selleck,15112,actor,left
+2025-09-13,John Travolta,8891,actor,right
+2025-09-14,Star Wars: Episode I - The Phantom Menace,1893,movie,left
+2025-09-14,Jason Momoa,117642,actor,right
+2025-09-15,Michelle Monaghan,11705,actor,left
+2025-09-15,Brad Pitt,287,actor,right
+2025-09-16,Jennifer Love Hewitt,33259,actor,left
+2025-09-16,Zendaya,505710,actor,right
+2025-09-17,Eddie Murphy,776,actor,left
+2025-09-17,Jon Hamm,65717,actor,right
+2025-09-18,Keanu Reeves,6384,actor,left
+2025-09-18,Tobey Maguire,2219,actor,right
+2025-09-19,Transformers,1858,movie,left
+2025-09-19,Oppenheimer,872585,movie,right
+2025-09-20,Sebastian Stan,60898,actor,left
+2025-09-20,Gene Hackman,193,actor,right
+2025-09-21,Michael Keaton,2232,actor,left
+2025-09-21,Cars,920,movie,right
+2025-09-22,Jodie Foster,1038,actor,left
+2025-09-22,John Goodman,1230,actor,right
+2025-09-23,Shrek 2,809,movie,left
+2025-09-23,Pierce Brosnan,517,actor,right
+2025-09-24,Jean-Claude Van Damme,15111,actor,left
+2025-09-24,Julia Roberts,1204,actor,right
+2025-09-25,Jake Gyllenhaal,131,actor,left
+2025-09-25,Vera Farmiga,21657,actor,right
+2025-09-26,Quantum of Solace,10764,movie,left
+2025-09-26,Mads Mikkelsen,1019,actor,right
+2025-09-27,Emma Stone,54693,actor,left
+2025-09-27,Elizabeth Olsen,550843,actor,right
+2025-09-28,Charlize Theron,6885,actor,left
+2025-09-28,Tom Hardy,2524,actor,right
+2025-09-29,Jim Carrey,206,actor,left
+2025-09-29,Chris Pratt,73457,actor,right
+2025-09-30,James Marsden,11006,actor,left
+2025-09-30,Harrison Ford,3,actor,right
+2025-10-01,Logan,263115,movie,left
+2025-10-01,Sean Connery,738,actor,right
+2025-10-02,Aquaman and the Lost Kingdom,572802,movie,left
+2025-10-02,Russell Crowe,934,actor,right
+2025-10-03,Vin Diesel,12835,actor,left
+2025-10-03,Drew Barrymore,69597,actor,right
+2025-10-04,Rami Malek,17838,actor,left
+2025-10-04,Amber Heard,55085,actor,right
+2025-10-05,Les Misérables,82695,movie,left
+2025-10-05,Brie Larson,60073,actor,right
+2025-10-06,Die Another Day,36669,movie,left
+2025-10-06,Owen Wilson,887,actor,right
+2025-10-07,The Lord of the Rings: The Fellowship of the Ring,120,movie,left
+2025-10-07,Chris Hemsworth,74568,actor,right
+2025-10-08,Spider-Man,557,movie,left
+2025-10-08,The Sixth Sense,745,movie,right
+2025-10-09,Jack Black,70851,actor,left
+2025-10-09,Diane Lane,2882,actor,right
+2025-10-10,Jude Law,9642,actor,left
+2025-10-10,Amanda Seyfried,71070,actor,right
+2025-10-11,The Fate of the Furious,337339,movie,left
+2025-10-11,Once Upon a Time... in Hollywood,466272,movie,right
+2025-10-12,Ben Stiller,7399,actor,left
+2025-10-12,Batman v Superman: Dawn of Justice,209112,movie,right
+2025-10-13,Viola Davis,19492,actor,left
+2025-10-13,Independence Day,602,movie,right
+2025-10-14,Quentin Tarantino,138,actor,left
+2025-10-14,Samuel L. Jackson,2231,actor,right
+2025-10-15,Jackie Sandler,60959,actor,left
+2025-10-15,Deadpool & Wolverine,533535,movie,right
+2025-10-16,Ralph Fiennes,5469,actor,left
+2025-10-16,John Cena,56446,actor,right
+2025-10-17,Gary Oldman,64,actor,left
+2025-10-17,American Sniper,190859,movie,right
+2025-10-18,Steve Carell,4495,actor,left
+2025-10-18,Anthony Hopkins,4173,actor,right
+2025-10-19,Mckenna Grace,1172108,actor,left
+2025-10-19,Benedict Cumberbatch,71580,actor,right
+2025-10-20,Jennifer Lawrence,72129,actor,left
+2025-10-20,Jeff Goldblum,4785,actor,right
+2025-10-21,Anne Hathaway,1813,actor,left
+2025-10-21,Christian Bale,3894,actor,right
+2025-10-22,Halle Berry,4587,actor,left
+2025-10-22,Arnold Schwarzenegger,1100,actor,right
+2025-10-23,Aubrey Plaza,119592,actor,left
+2025-10-23,Ted,72105,movie,right
+2025-10-24,Solo: A Star Wars Story,348350,movie,left
+2025-10-24,Jackie Chan,18897,actor,right

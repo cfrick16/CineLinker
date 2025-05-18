@@ -13,6 +13,11 @@ export class MovieService {
       imageUrl: await tmdbWrapper.getImageUrl(movieDetails.images.backdrops),
     }
   }
+
+  async getPopularMovies(numResults: number): Promise<{id: number, name: string}[]> {
+    return (await tmdbWrapper.fetchPopularMovies(numResults))
+      .map(movie => ({id: movie.id, name: movie.title}));
+  }
 }
 
 // Export a singleton instance

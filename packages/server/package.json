@@ -8,6 +8,8 @@
     "start": "node dist/index.js",
     "lint": "eslint src --fix",
     "migrate-daily-challenges": "ts-node src/scripts/migrateDailyChallenges.ts",
+    "populate-challenges": "ts-node src/scripts/populateChallenges.ts",
+    "populate-movies-and-actors": "ts-node src/scripts/populateMoviesAndActors.ts",
     "serverless": "serverless"
   },
   "dependencies": {

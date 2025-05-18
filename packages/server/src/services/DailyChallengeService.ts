@@ -2,6 +2,7 @@ import { ISOString, GetDailyChallengeResponseBody, EntityType, Actor, Movie } fr
 import { actorsService } from './ActorsService';
 import { movieService } from './MovieService';
 import { DynamoDB } from 'aws-sdk';
+import { Challenge } from '@cinelinker/shared';
 
 const dynamoDB = new DynamoDB.DocumentClient({
   region: 'us-west-2'
@@ -66,8 +67,8 @@ export class DailyChallengeService {
         throw new Error(`No challenge found for date: ${dateString}`);
       }
 
-      const startNode = startResult.Item;
-      const endNode = endResult.Item;
+      const startNode: Challenge = startResult.Item as Challenge;
+      const endNode: Challenge = endResult.Item as Challenge;
       
       const startEntity = await this.getActorOrMovieByStartNode({
         tmdbId: startNode.tmdbId,

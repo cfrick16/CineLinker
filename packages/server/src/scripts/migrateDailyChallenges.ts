@@ -2,18 +2,11 @@ import { DynamoDB } from 'aws-sdk';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as csv from 'csv-parse/sync';
+import { Challenge } from '@cinelinker/shared';
 
 interface AWSError {
   code?: string;
   message?: string;
-}
-
-interface Challenge {
-  nodePosition: "left" | "right";
-  date: string;
-  tmdbId: string;
-  entityType: "actor" | "movie";
-  name: string;
 }
 
 const dynamoDB = new DynamoDB.DocumentClient({
@@ -27,7 +20,7 @@ const dynamoDBService = new DynamoDB({
 const TABLE_NAME = 'CinelinkerStartingNodes';
 
 async function readChallengesFromCSV(): Promise<Challenge[]> {
-  const csvPath = path.join(__dirname, 'challenges.csv');
+  const csvPath = path.join(__dirname, 'resources/challenges.csv');
   const fileContent = fs.readFileSync(csvPath, 'utf-8');
   
   const records: Challenge[] = csv.parse(fileContent, {
