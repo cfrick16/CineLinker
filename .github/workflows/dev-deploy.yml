@@ -3,15 +3,14 @@ name: Development Deployment
 on:
   push:
     branches:
-      - develop
-      - 'feature/**'
+      - dev
   workflow_dispatch:
 
 jobs:
   deploy-dev:
-    environment: development
     name: Deploy to Development
     runs-on: ubuntu-latest
+    environment: development
     
     steps:
       - name: Checkout code
@@ -38,8 +37,8 @@ jobs:
       - name: Build
         run: pnpm build
         env:
-          NODE_ENV: development    
-
+          NODE_ENV: development
+      
       # Install AWS CLI
       - name: Install AWS CLI
         run: |
@@ -50,27 +49,20 @@ jobs:
           else
             echo "AWS CLI already installed"
             aws --version
-          fi
-      
-      # Install jq for JSON processing
-      - name: Install jq
-        run: sudo apt-get install -y jq
-      
-      # Deploy server to AWS ECR
-      - name: Deploy Server to AWS ECR
+
+      # Deploy server to AWS Lambda
+      - name: Deploy Server to AWS Lambda
         run: |
           # Configure AWS credentials correctly
           aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
           aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
           aws configure set default.region "$AWS_REGION"
-          echo "Skipping server deployment in development until we have a dev ECR setup"
-          # echo "Deploying server to AWS ECR"
-          # chmod +x .github/scripts/deploy-server.sh
-          # .github/scripts/deploy-server.sh
+          
+          echo "Deploying server to AWS Lambda"
+          chmod +x .github/scripts/deploy-server.sh
+          STAGE=dev .github/scripts/deploy-server.sh
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-          ECR_REPOSITORY: ${{ secrets.DEV_ECR_REPOSITORY }}
-          IMAGE_TAG: ${{ github.sha }}
       

@@ -3,34 +3,21 @@
 # Exit on error
 set -e
 
-# Configuration
-AWS_REGION="us-west-2"
-ECR_REPO_NAME="cinelinker-server"
-IMAGE_TAG="latest"
+# Load environment variables
+if [ -f .env ]; then
+  export $(cat .env | grep -v '^#' | xargs)
+fi
 
-# Get AWS account ID
-AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-ECR_REPO_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}"
+# Install dependencies
+echo "Installing dependencies..."
+pnpm install
 
-echo "🚀 Starting deployment..."
+# Build TypeScript code
+echo "Building TypeScript code..."
+pnpm build
 
-# Navigate to project root
-cd ../..
+# Deploy to AWS Lambda using Serverless Framework
+echo "Deploying to AWS Lambda..."
+npx serverless deploy
 
-# Authenticate Docker to ECR
-echo "🔑 Logging into ECR..."
-aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
-
-# Build the Docker image for linux/amd64 platform
-echo "🏗️  Building Docker image..."
-docker build --platform linux/amd64 -t ${ECR_REPO_NAME}:${IMAGE_TAG} -f packages/server/Dockerfile .
-
-# Tag the image for ECR
-echo "🏷️  Tagging image for ECR..."
-docker tag ${ECR_REPO_NAME}:${IMAGE_TAG} ${ECR_REPO_URI}:${IMAGE_TAG}
-
-# Push the image to ECR
-echo "⬆️  Pushing image to ECR..."
-docker push ${ECR_REPO_URI}:${IMAGE_TAG}
-
-echo "✅ Deployment completed successfully!" 
+echo "Deployment complete!" 

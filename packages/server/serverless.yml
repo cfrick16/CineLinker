@@ -1,0 +1,30 @@
+service: cinelinker-api
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-west-2
+  environment:
+    NODE_ENV: production
+
+functions:
+  api:
+    handler: src/index.handler
+    events:
+      - http:
+          path: /api/{proxy+}
+          method: any
+          cors: true
+    environment:
+      NODE_ENV: production
+    timeout: 28
+    memorySize: 1024
+
+build:
+  esbuild:
+    bundle: true
+    minify: true
+    target: "node20"
+    platform: "node"
+    define:
+      'process.env.NODE_ENV': '"production"'

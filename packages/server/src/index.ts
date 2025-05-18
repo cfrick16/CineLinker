@@ -12,6 +12,8 @@ import { movieService } from './services/MovieService';
 import { dailyChallengeService } from './services/DailyChallengeService';
 import { challengeGeneratorService } from './services/ChallengeGeneratorService';
 import { challengeSolverService } from './services/ChallengeSolverService';
+import { Handler } from 'aws-lambda';
+import serverless from 'serverless-http';
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -33,7 +35,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
 app.use(express.json());
 
 app.get('/api/health', (req, res) => {
@@ -138,6 +139,12 @@ app.post('/api/getHint', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  // console.log(`Server running on port ${port}`);
-});
+// Only start the server if not running in Lambda
+if (process.env.AWS_LAMBDA_FUNCTION_NAME === undefined) {
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
+}
+
+// Create the handler
+export const handler: Handler = serverless(app);
