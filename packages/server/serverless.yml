@@ -31,3 +31,4 @@ custom:
     platform: "node"
     define:
       'process.env.NODE_ENV': '"production"'
+    exclude: []
