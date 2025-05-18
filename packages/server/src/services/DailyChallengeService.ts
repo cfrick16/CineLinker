@@ -1,7 +1,25 @@
 import { ISOString, GetDailyChallengeResponseBody, EntityType, Actor, Movie } from '@cinelinker/shared';
-import { startNodes } from '../mockdata/sampleData';
 import { actorsService } from './ActorsService';
 import { movieService } from './MovieService';
+import { DynamoDB } from 'aws-sdk';
+
+const dynamoDB = new DynamoDB.DocumentClient({
+  region: 'us-west-2'
+});
+
+const dynamoDBService = new DynamoDB({
+  region: 'us-west-2'
+});
+
+const TABLE_NAME = 'CinelinkerStartingNodes';
+
+interface DailyChallengeNode {
+  dateAndNodeNumber: string; // Format: "YYYY-MM-DD-1" or "YYYY-MM-DD-2"
+  date: string;
+  tmdbId: string;
+  entityType: EntityType;
+  name: string;
+}
 
 const getCurrentDate = (): string => {
   // Create date in CST
@@ -20,47 +38,64 @@ const getCurrentDate = (): string => {
 };
 
 export class DailyChallengeService {
-  private useHardcodedExample = true;
-
-  private async getActorOrMovieByStartNode(node: {id: string, entityType: EntityType}): Promise<Actor | Movie | undefined> {
+  private async getActorOrMovieByStartNode(node: {tmdbId: string, entityType: EntityType}): Promise<Actor | Movie | undefined> {
     if(node.entityType === EntityType.Actor) {
-      return await actorsService.getActorById(node.id)
+      return await actorsService.getActorById(node.tmdbId)
     }
-    return await movieService.getMovieById(node.id);
+    return await movieService.getMovieById(node.tmdbId);
   }
 
-  async getDailyChallengeHardcoded(): Promise<GetDailyChallengeResponseBody> {
-    const dateString = getCurrentDate();
-    const nodes = startNodes.get(dateString);
-
-    if (!nodes || nodes.length !== 2) {
-      throw new Error(`No challenge found for date: ${dateString}`);
-    }
-
-    const startEntity = await this.getActorOrMovieByStartNode(nodes[0]);
-    const endEntity = await this.getActorOrMovieByStartNode(nodes[1]);
-
-    if (!startEntity || !endEntity) {
-      throw new Error('Failed to fetch start or end entity');
-    }
-
-    return {
-      status: 'success',
-      start: startEntity,
-      startType: nodes[0].entityType,
-      end: endEntity,
-      endType: nodes[1].entityType,
-      date: dateString as ISOString
-    };
-  }
-
-  // For now this will return a challenge for the current day randomly based on a hash of the date
   async getDailyChallenge(date?: string): Promise<GetDailyChallengeResponseBody> {
-    if(this.useHardcodedExample) {
-      return await this.getDailyChallengeHardcoded();
-    }
+    const dateString = date || getCurrentDate();
+    
+    try {
+      const params = {
+        TableName: TABLE_NAME,
+        KeyConditionExpression: 'date = :date',
+        ExpressionAttributeValues: {
+          ':date': dateString
+        }
+      };
 
-    throw new Error('Not implemented ' + date);
+      const result = await dynamoDB.query(params).promise();
+      
+      if (!result.Items || result.Items.length !== 2) {
+        throw new Error(`No challenge found for date: ${dateString}`);
+      }
+
+      // Sort items by node number (1 = start, 2 = end)
+      const sortedItems = result.Items.sort((a, b) => 
+        parseInt(a.dateAndNodeNumber.split('-')[3]) - parseInt(b.dateAndNodeNumber.split('-')[3])
+      );
+
+      const startNode = sortedItems[0];
+      const endNode = sortedItems[1];
+      
+      const startEntity = await this.getActorOrMovieByStartNode({
+        tmdbId: startNode.tmdbId,
+        entityType: startNode.entityType
+      });
+      const endEntity = await this.getActorOrMovieByStartNode({
+        tmdbId: endNode.tmdbId,
+        entityType: endNode.entityType
+      });
+
+      if (!startEntity || !endEntity) {
+        throw new Error('Failed to fetch start or end entity');
+      }
+
+      return {
+        status: 'success',
+        start: startEntity,
+        startType: startNode.entityType,
+        end: endEntity,
+        endType: endNode.entityType,
+        date: dateString as ISOString
+      };
+    } catch (error) {
+      console.error('Error fetching daily challenge:', error);
+      throw error;
+    }
   }
 }
 
