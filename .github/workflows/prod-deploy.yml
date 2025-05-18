@@ -52,6 +52,7 @@ jobs:
           else
             echo "AWS CLI already installed"
             aws --version
+          fi
 
       # Deploy server to AWS Lambda
       - name: Deploy Server to AWS Lambda
