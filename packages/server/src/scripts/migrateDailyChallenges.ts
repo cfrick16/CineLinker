@@ -1,9 +1,19 @@
 import { DynamoDB } from 'aws-sdk';
-import { startNodes } from '../mockdata/sampleData';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as csv from 'csv-parse/sync';
 
 interface AWSError {
   code?: string;
   message?: string;
+}
+
+interface Challenge {
+  nodePosition: "left" | "right";
+  date: string;
+  tmdbId: string;
+  entityType: "actor" | "movie";
+  name: string;
 }
 
 const dynamoDB = new DynamoDB.DocumentClient({
@@ -15,6 +25,19 @@ const dynamoDBService = new DynamoDB({
 });
 
 const TABLE_NAME = 'CinelinkerStartingNodes';
+
+async function readChallengesFromCSV(): Promise<Challenge[]> {
+  const csvPath = path.join(__dirname, 'challenges.csv');
+  const fileContent = fs.readFileSync(csvPath, 'utf-8');
+  
+  const records: Challenge[] = csv.parse(fileContent, {
+    columns: true,
+    skip_empty_lines: true
+  });
+
+  console.log(records);
+  return records;
+}
 
 async function migrateDailyChallenges() {
   try {
@@ -45,51 +68,31 @@ async function migrateDailyChallenges() {
       }
     }
 
+    // Read challenges from CSV
+    const challenges = await readChallengesFromCSV();
+    console.log(`Found ${challenges.length} challenges in CSV`);
+    console.log(`Found ${challenges[0].date} challenges in CSV`);
+
+
     // Migrate each challenge
-    for (const [date, nodes] of startNodes.entries()) {
-      if (nodes.length !== 2) {
-        console.warn(`Skipping invalid challenge for date ${date}: expected 2 nodes, got ${nodes.length}`);
-        continue;
-      }
-
-      // Create start node
-      const startNode = {
-        dateAndNodeNumber: `${date}-1`,
-        date,
-        tmdbId: nodes[0].id,
-        entityType: nodes[0].entityType,
-        name: nodes[0].title
-      };
-
-      // Create end node
-      const endNode = {
-        dateAndNodeNumber: `${date}-2`,
-        date,
-        tmdbId: nodes[1].id,
-        entityType: nodes[1].entityType,
-        name: nodes[1].title
-      };
-
-      // Use batchWrite to write both items atomically
+    for (const challenge of challenges) {
       const params = {
         RequestItems: {
           [TABLE_NAME]: [
             {
               PutRequest: {
-                Item: startNode
+                Item:{
+                  ...challenge,
+                  dateAndNodeNumber: challenge.date + '-' + challenge.nodePosition
+                }
               }
             },
-            {
-              PutRequest: {
-                Item: endNode
-              }
-            }
           ]
         }
       };
 
       await dynamoDB.batchWrite(params).promise();
-      console.log(`Migrated challenge for date ${date}`);
+      console.log(`Migrated challenge for date ${challenge.date}`);
     }
 
     console.log('Migration completed successfully');

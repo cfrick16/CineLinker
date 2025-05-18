@@ -41,7 +41,7 @@ export class DailyChallengeService {
       const startNodeParams = {
         TableName: TABLE_NAME,
         Key: {
-          dateAndNodeNumber: `${dateString}-1`,
+          dateAndNodeNumber: `${dateString}-left`,
           date: dateString
         }
       };
@@ -49,7 +49,7 @@ export class DailyChallengeService {
       const endNodeParams = {
         TableName: TABLE_NAME,
         Key: {
-          dateAndNodeNumber: `${dateString}-2`,
+          dateAndNodeNumber: `${dateString}-right`,
           date: dateString
         }
       };
