@@ -14,6 +14,15 @@ This is a monorepo containing the following packages:
 - `packages/server`: Backend server
 - `packages/shared`: Shared types and utilities
 
+## How to load new challenges to DDB 
+Note: Feel free to skip any of these steps if you want to input entries manually. Or edit the DDB manually
+1. cd into packages/server
+2. Run ```pnpm populate-movies-and-actors```. This will generate 400 movies and actors in resources/movies.csv and resources/actors.csv
+3. Comb through movies and actors and remove unwanted entries
+4. Set the desired start date and max number of days in populateChallenges.ts
+5. Run ```pnpm populate-challenges```. This will create as many possible challenges up to MAX_NUMBER_OF_DAYS without reusing an actor or movie in resources/challenges.csv.
+6. Run ```pnpm migrate-daily-challenges``` This will load all of those challenges into DDB and the website will use that on the current date. 
+
 ## Getting Started
 
 1. Install dependencies:

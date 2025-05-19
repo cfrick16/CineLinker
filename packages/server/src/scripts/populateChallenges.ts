@@ -96,7 +96,7 @@ function writeChallengesToCSV(challenges: Challenge[]) {
 }
 
 // Generate challenges for the next 30 days starting from today
-const startDate = new Date();
-const numberOfDays = 400;
-const challenges = generateChallenges(startDate, numberOfDays);
+const startDate = new Date('2025-05-18');
+const MAX_NUMBER_OF_DAYS = 400;
+const challenges = generateChallenges(startDate, MAX_NUMBER_OF_DAYS);
 writeChallengesToCSV(challenges); 
