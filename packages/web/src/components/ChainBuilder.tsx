@@ -43,10 +43,14 @@ export function ChainBuilder() {
     }
   };
 
+  const getTodayDateStringLocalTime = () => {
+    const dateSplit = new Date().toLocaleDateString().split('/');
+    const today = dateSplit[2] + '-' + dateSplit[0].padStart(2, '0') + '-' + dateSplit[1].padStart(2, '0');
+    return today;
+  }
 
   useEffect(() => {
-    const today = new Date().toISOString().split('T')[0]; // Get YYYY-MM-DD format
-    apiFetch(`/api/getDailyChallenge?date=${today}`)
+    apiFetch(`/api/getDailyChallenge?date=${getTodayDateStringLocalTime()}`)
       .then((data: GetDailyChallengeResponseBody) => {
         const startNode = convertToChainNode(data.start, data.startType);
         const endNode = convertToChainNode(data.end, data.endType);
