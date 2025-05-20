@@ -1,6 +1,5 @@
 import { DynamoDB } from 'aws-sdk';
 import { EntityType, TmdbEntity } from '@cinelinker/shared';
-import { Entity } from 'aws-sdk/clients/cloudwatchlogs';
 import { movieService } from './MovieService';
 import { actorsService } from './ActorsService';
 const dynamoDB = new DynamoDB.DocumentClient({
@@ -30,7 +29,7 @@ export class SolutionService {
             
             if(entity == null) {
                 throw new Error(`Entity not found for id: ${id}`);
-            };
+            }
 
             return {
                 entity,
