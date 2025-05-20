@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Movie, Actor, SearchResult, ISOString, EntityType } from './types';
+import { Movie, Actor, SearchResult, ISOString, EntityType, TmdbEntity } from './types';
 
 export type Status = 'success' | 'error';
 
@@ -55,6 +55,23 @@ export type GetDailyChallengeResponseBody = {
   date: ISOString;
 }
 
+
 export interface GetDailyChallengeResponse extends Response {
   json: (body: GetDailyChallengeResponseBody) => this;
 } 
+
+// getSolution
+export interface GetSolutionRequest extends Request {
+  query: {
+    solutionId: string;
+  };
+}
+
+export type GetSolutionResponseBody = {
+  solution: TmdbEntity[];
+}
+
+export interface GetSolutionResponse extends Response {
+  json: (body: GetSolutionResponseBody) => this;
+} 
+

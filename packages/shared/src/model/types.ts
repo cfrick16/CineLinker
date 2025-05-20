@@ -16,6 +16,11 @@ export interface Actor {
   imageUrl?: string;
 }
 
+export interface TmdbEntity {
+  entity: Actor | Movie;
+  type: EntityType;
+}
+
 export interface SearchResult {
   imageUrl?: string;
   text: string;

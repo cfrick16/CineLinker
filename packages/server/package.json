@@ -10,6 +10,7 @@
     "migrate-daily-challenges": "ts-node src/scripts/migrateDailyChallenges.ts",
     "populate-challenges": "ts-node src/scripts/populateChallenges.ts",
     "populate-movies-and-actors": "ts-node src/scripts/populateMoviesAndActors.ts",
+    "create-solutions-table": "ts-node src/scripts/createSolutionsTable.ts",
     "serverless": "serverless"
   },
   "dependencies": {

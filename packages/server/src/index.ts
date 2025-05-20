@@ -5,6 +5,8 @@ import { SearchMoviesAndActorsRequest, SearchMoviesAndActorsResponse,
   GetActorByIdRequest, GetActorByIdResponse,
   GetDailyChallengeRequest, GetDailyChallengeResponse,
   GetDailyChallengeResponseBody,
+  GetSolutionRequest,
+  GetSolutionResponse,
 } from '@cinelinker/shared'; 
 import { actorsService } from './services/ActorsService';
 import { searchService } from './services/SearchService';
@@ -14,6 +16,7 @@ import { challengeGeneratorService } from './services/ChallengeGeneratorService'
 import { challengeSolverService } from './services/ChallengeSolverService';
 import { Handler } from 'aws-lambda';
 import serverless from 'serverless-http';
+import { solutionService } from './services/SolutionService';
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -62,6 +65,12 @@ app.get('/api/getActorById', (req: GetActorByIdRequest, res: GetActorByIdRespons
 app.get('/api/getDailyChallenge', (req: GetDailyChallengeRequest, res: GetDailyChallengeResponse) => {
   dailyChallengeService.getDailyChallenge(req.query.date).then((challenge: GetDailyChallengeResponseBody) => {
     res.json(challenge);
+  });
+});
+
+app.get('/api/getSolution', (req: GetSolutionRequest, res: GetSolutionResponse) => {
+  solutionService.getSolutionAsEntityList(req.query.solutionId).then((solutionList) => {
+      res.json({ solution: solutionList });
   });
 });
 
