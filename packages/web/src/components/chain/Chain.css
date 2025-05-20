@@ -25,7 +25,7 @@
   width: 100%;
   padding: 2rem;
   position: relative;
-  overflow: hidden;
+  overflow-x: auto;
 }
 
 .chain-container.success::after {
