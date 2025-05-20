@@ -26,7 +26,7 @@ export const isEntityRelated = (result: SearchResult, chainNode: ChainNode) => {
       return false;
     }
 
-    if(chainNode.entityType === EntityType.Actor) {
+    if(chainNode.type === EntityType.Actor) {
       return (chainNode.entity as Actor)
         .movieIds
         .some(movieId => movieId === result.id);
