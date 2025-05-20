@@ -18,11 +18,49 @@
 
 .chain-container.success {
   animation: successPulse 2s infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-bg-primary);
+  width: 100%;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.chain-container.success::after {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-success) 0px,
+    var(--color-success) 20px,
+    transparent 20px,
+    transparent 40px
+  );
+  animation: celebrate 1s linear infinite;
+  opacity: 0.3;
+  z-index: 1000;
+}
+
+.chain-container.success::before {
+  content: '🎉';
+  position: fixed;
+  bottom: 10px;
+  left: 0;
+  font-size: 24px;
+  animation: bounce 0.5s ease-in-out infinite alternate;
+  z-index: 1000;
 }
 
 .chain-container.success .chain-node {
   border-color: var(--color-success);
   box-shadow: var(--shadow-success);
+  transform: scale(1.1);
 }
 
 .chain-container.success .connection-line {
@@ -43,6 +81,24 @@
   }
   100% {
     box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+@keyframes celebrate {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 40px 0;
+  }
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0) rotate(0deg);
+  }
+  to {
+    transform: translateY(-10px) rotate(20deg);
   }
 }
 
@@ -70,8 +126,8 @@
   position: relative;
   transition: all 0.3s ease;
   z-index: 1;
-  margin-right: 20px; /* Default spacing between cards */
-  margin-left: 20px; /* Default spacing between cards */
+  display: flex;
+  align-items: center;
 }
 
 /* Default spacing for all screen sizes */
@@ -367,19 +423,16 @@
 }
 
 .chain-connection {
-  margin-left: -120px; /* Pull connection line back to connect with previous card */
-  z-index: 0;
-}
-
-/* Adjust connection line for non-stacked layout */
-@media (min-width: 1201px) {
-  .chain-connection {
-    margin-left: 0;
-  }
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  margin: 0 -20px;
+  padding: 0 10px;
 }
 
 .connection-line {
-  width: 60px;
+  width: 40px;
   height: 3px;
   background-color: var(--color-accent-tertiary);
   position: relative;
@@ -388,14 +441,24 @@
 
 /* Mobile styles */
 @media (max-width: 768px) {
+  .chain-connection {
+    margin: 0 -15px;
+    padding: 0 5px;
+  }
+  
   .connection-line {
-    width: 40px;
+    width: 30px;
     height: 2px;
   }
 }
 
 /* Small mobile styles */
 @media (max-width: 480px) {
+  .chain-connection {
+    margin: 0 -10px;
+    padding: 0 3px;
+  }
+  
   .connection-line {
     width: 20px;
   }
@@ -647,6 +710,7 @@
 
 .chain-node-wrapper {
   position: relative;
+  z-index: 1;
 }
 
 .remove-node {

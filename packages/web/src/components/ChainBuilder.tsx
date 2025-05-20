@@ -14,14 +14,13 @@ export function ChainBuilder() {
   const [invalidGuessCount, setInvalidGuessCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [isShowingSolution, setIsShowingSolution] = useState(false);
 
   const [leftNodes, setLeftNodes] = useState<ChainNode[]>([]);  
   const [rightNodes, setRightNodes] = useState<ChainNode[]>([]);
   const [centerNode, setCenterNode] = useState<ChainNode | null>(null);
 
   const submitGuess = async (result: SearchResult) => {
-    if (isShowingSolution) return; // Don't allow guesses while showing solution
+    if (centerNode != null) return; // Don't allow guesses while showing solution
     
     setGuessCount(prev => prev + 1);
     const entity = await getEntity(result);
@@ -82,7 +81,6 @@ export function ChainBuilder() {
         setLeftNodes(solutionNodes.slice(0, secondToLastNodeIdx));
         setCenterNode(solutionNodes[secondToLastNodeIdx]);
         setRightNodes([solutionNodes[solutionNodes.length - 1]]);
-        setIsShowingSolution(true);
       } else {
         setError('No solution found');
       }
@@ -99,7 +97,6 @@ export function ChainBuilder() {
     setLeftNodes([leftNodes[0]]);
     setRightNodes([rightNodes[0]]);
     setCenterNode(null);
-    setIsShowingSolution(false);
     setGuessCount(0);
     setInvalidGuessCount(0);
   };
@@ -127,7 +124,7 @@ export function ChainBuilder() {
             invalidGuesses={invalidGuessCount} 
           />
         </div>
-        {isShowingSolution ? (
+        {centerNode ? (
           <button 
             className="solution-button"
             onClick={resetGame}
