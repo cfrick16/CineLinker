@@ -40,24 +40,24 @@ export class SolutionService {
 
     async getSolution(solutionId: string): Promise<Solution | undefined> {
         try {
-        const params = {
-            TableName: TABLE_NAME,
-            Key: {
-            solutionId
+            const params = {
+                TableName: TABLE_NAME,
+                Key: {
+                    startAndEndId: solutionId
+                }
+            };
+
+            const result = await dynamoDB.get(params).promise();
+            
+            if (!result.Item) {
+                console.log(`No solution found for ID: ${solutionId}`);
+                return undefined;
             }
-        };
 
-        const result = await dynamoDB.get(params).promise();
-        
-        if (!result.Item) {
-            console.log(`No solution found for ID: ${solutionId}`);
-            return undefined;
-        }
-
-        return result.Item as Solution;
+            return result.Item as Solution;
         } catch (error) {
-        console.error('Error fetching solution:', error);
-        throw error;
+            console.error('Error fetching solution:', error);
+            throw error;
         }
     }
 }

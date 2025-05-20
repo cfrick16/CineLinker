@@ -6,7 +6,7 @@ import { apiFetch } from "../utils/api";
 export const convertToChainNode = (entity: Actor | Movie, entityType: EntityType): ChainNode => {
     return {
       entity,
-      entityType: entityType,
+      type: entityType,
     }
   }
 

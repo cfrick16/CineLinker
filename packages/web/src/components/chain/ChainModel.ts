@@ -1,13 +1,10 @@
-import { Actor, EntityType, Movie } from '@cinelinker/shared';
+import { TmdbEntity } from '@cinelinker/shared';
 
 export interface ChainActions {
   removeNode: (chainNode: ChainNode) => void;
 }
 
-export interface ChainNode {
-  entity: Actor | Movie;
-  entityType: EntityType;
-}
+export type ChainNode = TmdbEntity;
 
 export interface ChainModel {
   leftNodes: ChainNode[];

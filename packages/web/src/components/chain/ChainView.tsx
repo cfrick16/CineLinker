@@ -49,7 +49,7 @@ export function ChainView({ model, actions }: ChainViewProps) {
     return (
       <div key={node.entity.id} className="chain-item">
         <div className="chain-node-wrapper">
-          {node.entityType === EntityType.Actor ? (
+          {node.type === EntityType.Actor ? (
             <ActorNode actor={node.entity as Actor} />
           ) : (
             <MovieNode movie={node.entity as Movie} />
@@ -92,7 +92,7 @@ export function ChainView({ model, actions }: ChainViewProps) {
           return (
             <div key={node.entity.id} className={`chain-item ${nodeClass}`}>
               <div className="chain-node-wrapper">
-                {node.entityType === EntityType.Actor ? (
+                {node.type === EntityType.Actor ? (
                   <ActorNode actor={node.entity as Actor} />
                 ) : (
                   <MovieNode movie={node.entity as Movie} />
