@@ -23,9 +23,10 @@ export class SolutionService {
 
         return await Promise.all(solution.solution.map(async (id) => {
             const isMovie = id.startsWith('m');
+            const tmdbId = id.substring(1);
             const entity = isMovie ? 
-                await movieService.getMovieById(id) : 
-                await actorsService.getActorById(id);
+                await movieService.getMovieById(tmdbId) : 
+                await actorsService.getActorById(tmdbId);
             
             if(entity == null) {
                 throw new Error(`Entity not found for id: ${id}`);
