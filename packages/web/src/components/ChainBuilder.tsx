@@ -20,11 +20,6 @@ export function ChainBuilder() {
   const [rightNodes, setRightNodes] = useState<ChainNode[]>([]);
   const [centerNode, setCenterNode] = useState<ChainNode | null>(null);
 
-  // Store original nodes when showing solution
-  const [originalLeftNodes, setOriginalLeftNodes] = useState<ChainNode[]>([]);
-  const [originalRightNodes, setOriginalRightNodes] = useState<ChainNode[]>([]);
-  const [originalCenterNode, setOriginalCenterNode] = useState<ChainNode | null>(null);
-
   const submitGuess = async (result: SearchResult) => {
     if (isShowingSolution) return; // Don't allow guesses while showing solution
     
@@ -73,25 +68,20 @@ export function ChainBuilder() {
     setError(null);
     
     try {
-      // Store current state
-      setOriginalLeftNodes([...leftNodes]);
-      setOriginalRightNodes([...rightNodes]);
-      setOriginalCenterNode(centerNode);
-      
       const solutionId = `${getSolutionIdString(leftNodes[0])}-${getSolutionIdString(rightNodes[0])}`;
       const data: GetSolutionResponseBody = await apiFetch(`/api/getSolution?solutionId=${solutionId}`);
       
       if (data.solution && data.solution.length > 0) {
         // Convert solution to chain nodes
-        const solutionNodes = data.solution.map((entity: any) => 
-          convertToChainNode(entity.entity, entity.entityType)
+        const solutionNodes = data.solution.map((entity: TmdbEntity) => 
+          convertToChainNode(entity.entity, entity.type)
         );
         
         // Split solution into left and right parts
-        const midPoint = Math.floor(solutionNodes.length / 2);
-        setLeftNodes(solutionNodes.slice(0, midPoint));
-        setRightNodes(solutionNodes.slice(midPoint).reverse());
-        setCenterNode(null);
+        const secondToLastNodeIdx = solutionNodes.length - 2;
+        setLeftNodes(solutionNodes.slice(0, secondToLastNodeIdx));
+        setCenterNode(solutionNodes[secondToLastNodeIdx]);
+        setRightNodes([solutionNodes[solutionNodes.length - 1]]);
         setIsShowingSolution(true);
       } else {
         setError('No solution found');
@@ -104,12 +94,14 @@ export function ChainBuilder() {
     }
   };
 
-  const hideSolution = () => {
-    // Restore original state
-    setLeftNodes([...originalLeftNodes]);
-    setRightNodes([...originalRightNodes]);
-    setCenterNode(originalCenterNode);
+  const resetGame = () => {
+    // Reset to initial state
+    setLeftNodes([leftNodes[0]]);
+    setRightNodes([rightNodes[0]]);
+    setCenterNode(null);
     setIsShowingSolution(false);
+    setGuessCount(0);
+    setInvalidGuessCount(0);
   };
 
   useEffect(() => {
@@ -120,9 +112,6 @@ export function ChainBuilder() {
         // Set the initial nodes
         setLeftNodes([startNode]);
         setRightNodes([endNode]);
-        // Also set as original nodes
-        setOriginalLeftNodes([startNode]);
-        setOriginalRightNodes([endNode]);
       });
   }, []);
 
@@ -141,9 +130,9 @@ export function ChainBuilder() {
         {isShowingSolution ? (
           <button 
             className="solution-button"
-            onClick={hideSolution}
+            onClick={resetGame}
           >
-            Hide Solution
+            Reset Game
           </button>
         ) : (
           <button 
